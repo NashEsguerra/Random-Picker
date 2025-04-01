@@ -6,7 +6,6 @@
 <title>Random Picker App</title>
 <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
   /* Custom styles */
   body {
@@ -367,84 +366,9 @@
     align-items: center;
     font-weight: bold;
   }
-
-  .loading-spinner {
-    border: 4px solid rgba(255, 255, 255, 0.3);
-    border-radius: 50%;
-    border-top: 4px solid white;
-    width: 40px;
-    height: 40px;
-    animation: spin 1s linear infinite;
-    margin: 20px auto;
-  }
-
-  @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-  }
-
-  .winners-history {
-    background-color: rgba(255, 255, 255, 0.1);
-    border-radius: 0.5rem;
-    padding: 1rem;
-    margin-top: 2rem;
-  }
-
-  .winners-history h3 {
-    font-size: 1.25rem;
-    margin-bottom: 0.5rem;
-    text-align: center;
-  }
-
-  .winners-list {
-    max-height: 200px;
-    overflow-y: auto;
-  }
-
-  .winner-item {
-    display: flex;
-    justify-content: space-between;
-    padding: 0.5rem;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-  }
-
-  .winner-item:last-child {
-    border-bottom: none;
-  }
-
-  .toast {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    background-color: #4a5568;
-    color: white;
-    padding: 1rem;
-    border-radius: 0.5rem;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    z-index: 100;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-  }
-
-  .toast.show {
-    opacity: 1;
-  }
 </style>
 </head>
 <body>
-<!-- Loading Overlay -->
-<div id="loading-overlay" class="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50">
-  <div class="text-center">
-    <div class="loading-spinner"></div>
-    <p class="mt-4 text-xl">Loading data...</p>
-  </div>
-</div>
-
-<!-- Toast Notification -->
-<div id="toast" class="toast">
-  <div id="toast-message"></div>
-</div>
-
 <!-- Home Page -->
 <div id="home-page" class="page home-bg active">
   <div class="bg-element" style="top: 10%; left: 10%; width: 200px; height: 200px; background-color: #4c51bf;"></div>
@@ -452,7 +376,7 @@
   <div class="bg-element" style="top: 40%; left: 30%; width: 150px; height: 150px; background-color: #4299e1;"></div>
   
   <div class="container mx-auto py-8">
-    <h1 class="text-4xl font-bold text-center mb-4">Random Picker App</h1>
+    <h1 class="text-4xl font-bold text-center mb-4">Random Picker</h1>
     <p class="text-xl text-center mb-8">Select a drawing option below to get started</p>
     
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 max-w-6xl mx-auto">
@@ -479,7 +403,7 @@
             <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Barangay-fWBI8Y18uCV4iUOJN5K1oICCUBv5Pf.png" alt="Barangay icon" class="h-36 w-36 object-contain rounded-lg">
           </div>
           <div class="flex justify-center">
-            <button class="btn btn-primary" onclick="showPage('barangay-page')">Select</button>
+            <button class="btn btn-primary" onclick="showPage('brgy-page')">Select</button>
           </div>
         </div>
       </div>
@@ -493,7 +417,7 @@
             <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Catoda-1sXu3r63Tiig8xuBjcG8Kkc0M2ZwIl.png" alt="Catoda icon" class="h-36 w-36 object-contain rounded-lg">
           </div>
           <div class="flex justify-center">
-            <button class="btn btn-primary" onclick="showPage('catoda-page')">Select</button>
+            <button class="btn btn-primary" onclick="showPage('katoda-page')">Select</button>
           </div>
         </div>
       </div>
@@ -518,7 +442,7 @@
           <h2 class="text-xl font-bold text-center text-gray-800">1st of Month</h2>
           <p class="text-center text-gray-600 mb-4">Draw numbers from 1-30</p>
           <div class="flex justify-center mb-4">
-            <img src="https://img.freepik.com/free-vector/calendar-icon-white-background_1308-84634.jpg?w=826&t=st=1712022400~exp=1712023000~hmac=c0c2b679b4a8f8c0d0b2c9c3d3c3c3c3c3c3c3c3c3c3c3c3c3c3c3c3c3c3c3c3" alt="1st of Month icon" class="h-36 w-36 object-contain rounded-lg">
+            <img src="https://img.freepik.com/free-vector/calendar-icon-white-background_1308-84634.jpg?w=826&t=st=1712022400~exp=1712023000~hmac=c0c2b679b4a8f8c0d0b2c9c3d3c3c3c3c3c3c3c3c3c3c3c3c3c3c3c3c3c3" alt="1st of Month icon" class="h-36 w-36 object-contain rounded-lg">
           </div>
           <div class="flex justify-center">
             <button class="btn btn-primary" onclick="showPage('first-month-page')">Select</button>
@@ -532,7 +456,7 @@
           <h2 class="text-xl font-bold text-center text-gray-800">Custom Draw</h2>
           <p class="text-center text-gray-600 mb-4">Create your own custom drawing</p>
           <div class="flex justify-center mb-4">
-            <img src="https://img.freepik.com/free-vector/settings-concept-illustration_114360-3754.jpg?w=826&t=st=1712022500~exp=1712023100~hmac=c0c2b679b4a8f8c0d0b2c9c3d3c3c3c3c3c3c3c3c3c3c3c3c3c3c3c3c3c3c3c3" alt="Custom Draw icon" class="h-36 w-36 object-contain rounded-lg">
+            <img src="https://img.freepik.com/free-vector/settings-concept-illustration_114360-3754.jpg?w=826&t=st=1712022500~exp=1712023100~hmac=c0c2b679b4a8f8c0d0b2c9c3d3c3c3c3c3c3c3c3c3c3c3c3c3c3c3c3c3c3" alt="Custom Draw icon" class="h-36 w-36 object-contain rounded-lg">
           </div>
           <div class="flex justify-center">
             <button class="btn btn-secondary" onclick="showPage('custom-page')">Create Custom</button>
@@ -572,12 +496,6 @@
         <p id="batch-winner" class="text-2xl font-bold text-center mt-2"></p>
       </div>
     </div>
-
-    <!-- Winners History -->
-    <div class="winners-history">
-      <h3>Previous Winners</h3>
-      <div id="batch-winners-list" class="winners-list"></div>
-    </div>
   </div>
   
   <!-- Settings Modal -->
@@ -601,7 +519,23 @@
         
         <div>
           <label class="block mb-2">Enter Names:</label>
-          <textarea id="batch-names-input" class="textarea" placeholder="Enter one name per line"></textarea>
+          <textarea id="batch-names-input" class="textarea" placeholder="Enter one name per line">Willy
+Lito
+George
+Jess
+Monner
+Jenny
+Meanne
+Ronnie
+Noel
+Imie
+Irene
+Lilian
+Nory
+Emelie
+Marina
+Myleen
+Merlinda</textarea>
           <button class="btn btn-primary w-full" onclick="addNames('batch')">Add Names</button>
         </div>
         
@@ -629,71 +563,75 @@
 </div>
 
 <!-- Brgy Page -->
-<div id="barangay-page" class="page brgy-bg">
+<div id="brgy-page" class="page brgy-bg">
   <button class="back-btn" onclick="showPage('home-page')">
     ← Back
   </button>
-  <button class="settings-btn" onclick="toggleSettings('barangay-settings')">
+  <button class="settings-btn" onclick="toggleSettings('brgy-settings')">
     ⚙️ Settings
   </button>
   
   <div class="container mx-auto pt-16">
-    <h1 id="barangay-title" class="text-3xl font-bold mb-2 text-center">BARANGAY JUDICIARY POBLACION</h1>
-    <h2 id="barangay-subtitle" class="text-xl mb-8 text-center">MONTHLY MEET-UP</h2>
+    <h1 id="brgy-title" class="text-3xl font-bold mb-2 text-center">BARANGAY JUDICIARY POBLACION</h1>
+    <h2 id="brgy-subtitle" class="text-xl mb-8 text-center">MONTHLY MEET-UP</h2>
     
     <!-- Names Grid -->
-    <div id="barangay-grid" class="grid grid-cols-2 sm:grid-cols-3 gap-4 mb-8"></div>
+    <div id="brgy-grid" class="grid grid-cols-2 sm:grid-cols-3 gap-4 mb-8"></div>
     
     <!-- Draw Button and Winner Display -->
     <div class="flex flex-col items-center justify-center mt-8">
-      <button id="barangay-draw-btn" class="btn btn-primary text-2xl py-3 px-8" onclick="startDraw('barangay')">Draw</button>
+      <button id="brgy-draw-btn" class="btn btn-primary text-2xl py-3 px-8" onclick="startDraw('brgy')">Draw</button>
       
-      <div id="barangay-winner-display" style="display: none;" class="winner-card">
+      <div id="brgy-winner-display" style="display: none;" class="winner-card">
         <h3 class="text-xl font-bold text-center">Winner</h3>
-        <p id="barangay-winner" class="text-2xl font-bold text-center mt-2"></p>
+        <p id="brgy-winner" class="text-2xl font-bold text-center mt-2"></p>
       </div>
-    </div>
-
-    <!-- Winners History -->
-    <div class="winners-history">
-      <h3>Previous Winners</h3>
-      <div id="barangay-winners-list" class="winners-list"></div>
     </div>
   </div>
   
   <!-- Settings Modal -->
-  <div id="barangay-settings" class="modal" style="display: none;">
+  <div id="brgy-settings" class="modal" style="display: none;">
     <div class="modal-content">
       <div class="flex justify-between items-center mb-4">
         <h2 class="text-xl font-bold">Settings</h2>
-        <button onclick="toggleSettings('barangay-settings')">✕</button>
+        <button onclick="toggleSettings('brgy-settings')">✕</button>
       </div>
       
       <div class="space-y-4">
         <div>
           <label class="block mb-2">Edit Title:</label>
-          <input id="barangay-title-input" type="text" class="input" value="BARANGAY JUDICIARY POBLACION">
+          <input id="brgy-title-input" type="text" class="input" value="BARANGAY JUDICIARY POBLACION">
         </div>
         
         <div>
           <label class="block mb-2">Edit Subtitle:</label>
-          <input id="barangay-subtitle-input" type="text" class="input" value="MONTHLY MEET-UP">
+          <input id="brgy-subtitle-input" type="text" class="input" value="MONTHLY MEET-UP">
         </div>
         
         <div>
           <label class="block mb-2">Enter Names:</label>
-          <textarea id="barangay-names-input" class="textarea" placeholder="Enter one name per line"></textarea>
-          <button class="btn btn-primary w-full" onclick="addNames('barangay')">Add Names</button>
+          <textarea id="brgy-names-input" class="textarea" placeholder="Enter one name per line">ALBERTO
+NHOEL
+NESTOR
+ALDRIN
+K. ADING
+K. REY
+K. JL
+RUBEN
+KAP B.
+MAXIMA
+VICKY</textarea>
+          <button class="btn btn-primary w-full" onclick="addNames('brgy')">Add Names</button>
         </div>
         
         <div>
           <label class="block mb-2">Upload Names File:</label>
-          <input type="file" accept=".txt,.csv" onchange="handleFileUpload(this, 'barangay')" class="input">
+          <input type="file" accept=".txt,.csv" onchange="handleFileUpload(this, 'brgy')" class="input">
         </div>
         
         <div>
           <label class="block mb-2">Select Shape:</label>
-          <select id="barangay-shape" class="select">
+          <select id="brgy-shape" class="select">
             <option value="rectangle">Rectangle</option>
             <option value="circle">Circle</option>
             <option value="rounded">Rounded Rectangle</option>
@@ -702,7 +640,7 @@
         
         <div>
           <label class="block mb-2">Draw Time (seconds):</label>
-          <input id="barangay-draw-time" type="number" min="5" max="60" value="45" class="input">
+          <input id="brgy-draw-time" type="number" min="5" max="60" value="45" class="input">
         </div>
       </div>
     </div>
@@ -710,55 +648,49 @@
 </div>
 
 <!-- Katoda Page -->
-<div id="catoda-page" class="page katoda-bg">
+<div id="katoda-page" class="page katoda-bg">
   <button class="back-btn" onclick="showPage('home-page')">
     ← Back
   </button>
-  <button class="settings-btn" onclick="toggleSettings('catoda-settings')">
+  <button class="settings-btn" onclick="toggleSettings('katoda-settings')">
     ⚙️ Settings
   </button>
   
   <div class="container mx-auto pt-16">
-    <h1 id="catoda-title" class="text-3xl font-bold mb-2 text-center">CATODA DRAW</h1>
-    <h2 id="catoda-subtitle" class="text-xl mb-8 text-center">NUMBERS 1-45</h2>
+    <h1 id="katoda-title" class="text-3xl font-bold mb-2 text-center">CATODA DRAW</h1>
+    <h2 id="katoda-subtitle" class="text-xl mb-8 text-center">NUMBERS 1-45</h2>
     
     <!-- Numbers Grid -->
-    <div id="catoda-grid" class="grid grid-cols-3 sm:grid-cols-5 md:grid-cols-7 lg:grid-cols-9 gap-4 mb-8"></div>
+    <div id="katoda-grid" class="grid grid-cols-3 sm:grid-cols-5 md:grid-cols-7 lg:grid-cols-9 gap-4 mb-8"></div>
     
     <!-- Draw Button and Winner Display -->
     <div class="flex flex-col items-center justify-center mt-8">
-      <button id="catoda-draw-btn" class="btn btn-primary text-2xl py-3 px-8" onclick="startDraw('catoda')">Draw</button>
+      <button id="katoda-draw-btn" class="btn btn-primary text-2xl py-3 px-8" onclick="startDraw('katoda')">Draw</button>
       
-      <div id="catoda-winner-display" style="display: none;" class="winner-card">
+      <div id="katoda-winner-display" style="display: none;" class="winner-card">
         <h3 class="text-xl font-bold text-center">Winner</h3>
-        <p id="catoda-winner" class="text-5xl font-bold text-center mt-2"></p>
+        <p id="katoda-winner" class="text-5xl font-bold text-center mt-2"></p>
       </div>
-    </div>
-
-    <!-- Winners History -->
-    <div class="winners-history">
-      <h3>Previous Winners</h3>
-      <div id="catoda-winners-list" class="winners-list"></div>
     </div>
   </div>
   
   <!-- Settings Modal -->
-  <div id="catoda-settings" class="modal" style="display: none;">
+  <div id="katoda-settings" class="modal" style="display: none;">
     <div class="modal-content">
       <div class="flex justify-between items-center mb-4">
         <h2 class="text-xl font-bold">Settings</h2>
-        <button onclick="toggleSettings('catoda-settings')">✕</button>
+        <button onclick="toggleSettings('katoda-settings')">✕</button>
       </div>
       
       <div class="space-y-4">
         <div>
           <label class="block mb-2">Edit Title:</label>
-          <input id="catoda-title-input" type="text" class="input" value="CATODA DRAW">
+          <input id="katoda-title-input" type="text" class="input" value="CATODA DRAW">
         </div>
         
         <div>
           <label class="block mb-2">Edit Subtitle:</label>
-          <input id="catoda-subtitle-input" type="text" class="input" value="NUMBERS 1-45">
+          <input id="katoda-subtitle-input" type="text" class="input" value="NUMBERS 1-45">
         </div>
         
         <div>
@@ -766,19 +698,19 @@
           <div class="flex gap-4">
             <div>
               <label class="block text-sm">Min</label>
-              <input id="catoda-min" type="number" min="1" value="1" class="input">
+              <input id="katoda-min" type="number" min="1" value="1" class="input">
             </div>
             <div>
               <label class="block text-sm">Max</label>
-              <input id="catoda-max" type="number" min="2" value="45" class="input">
+              <input id="katoda-max" type="number" min="2" value="45" class="input">
             </div>
           </div>
-          <button class="btn btn-primary w-full" onclick="generateNumbers('catoda')">Generate Numbers</button>
+          <button class="btn btn-primary w-full" onclick="generateNumbers('katoda')">Generate Numbers</button>
         </div>
         
         <div>
           <label class="block mb-2">Select Shape:</label>
-          <select id="catoda-shape" class="select">
+          <select id="katoda-shape" class="select">
             <option value="rectangle">Rectangle</option>
             <option value="circle">Circle</option>
             <option value="rounded">Rounded Rectangle</option>
@@ -787,7 +719,7 @@
         
         <div>
           <label class="block mb-2">Draw Time (seconds):</label>
-          <input id="catoda-draw-time" type="number" min="5" max="60" value="45" class="input">
+          <input id="katoda-draw-time" type="number" min="5" max="60" value="45" class="input">
         </div>
       </div>
     </div>
@@ -824,12 +756,6 @@
         <h3 class="text-xl font-bold text-center">Winner</h3>
         <p id="knights-winner" class="text-5xl font-bold text-center mt-2"></p>
       </div>
-    </div>
-
-    <!-- Winners History -->
-    <div class="winners-history">
-      <h3>Previous Winners</h3>
-      <div id="knights-winners-list" class="winners-list"></div>
     </div>
   </div>
   
@@ -917,12 +843,6 @@
         <p id="first-month-winner" class="text-5xl font-bold text-center mt-2"></p>
       </div>
     </div>
-
-    <!-- Winners History -->
-    <div class="winners-history">
-      <h3>Previous Winners</h3>
-      <div id="first-month-winners-list" class="winners-list"></div>
-    </div>
   </div>
   
   <!-- Settings Modal -->
@@ -1007,12 +927,6 @@
         <h3 class="text-xl font-bold text-center">Winner</h3>
         <p id="custom-winner" class="text-3xl font-bold text-center mt-2"></p>
       </div>
-    </div>
-
-    <!-- Winners History -->
-    <div class="winners-history">
-      <h3>Previous Winners</h3>
-      <div id="custom-winners-list" class="winners-list"></div>
     </div>
   </div>
   
@@ -1134,11 +1048,6 @@
 <div id="countdown-display" class="countdown" style="display: none;"></div>
 
 <script>
-  // Initialize Supabase client - REPLACE THESE VALUES with your actual Supabase URL and anon key
-  const supabaseUrl = 'https://sbedvubjuvavdqgfsexb.supabase.co';
-  const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNiZWR2dWJqdXZhdmRxZ2ZzZXhiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDM0ODk1MjYsImV4cCI6MjA1OTA2NTUyNn0.RpJF96qCBhWEHvqSnsu697cHZZczRmIZWE7eEI_SZxQ';
-  const supabase = supabase.createClient(supabaseUrl, supabaseKey);
-
   // Audio elements
   let drumRoll = new Audio("https://free-sound-effects.net/mp3/03/free-sound-1674970809.mp3");
   let winnerSound = new Audio("https://www.fesliyanstudios.com/play-mp3/6778");
@@ -1147,7 +1056,7 @@
   // Data storage
   const data = {
     batch: {
-      items: [],
+      names: [],
       title: "Batch 83 Geremyunhan",
       subtitle: "Every 2nd Saturday Of the Month",
       shape: "rectangle",
@@ -1156,11 +1065,10 @@
       winner: "",
       highlightIndex: null,
       highlightInterval: null,
-      timerInterval: null,
-      categoryId: 1
+      timerInterval: null
     },
-    barangay: {
-      items: [],
+    brgy: {
+      names: [],
       title: "BARANGAY JUDICIARY POBLACION",
       subtitle: "MONTHLY MEET-UP",
       shape: "rectangle",
@@ -1169,11 +1077,10 @@
       winner: "",
       highlightIndex: null,
       highlightInterval: null,
-      timerInterval: null,
-      categoryId: 2
+      timerInterval: null
     },
-    catoda: {
-      items: [],
+    katoda: {
+      numbers: [],
       title: "CATODA DRAW",
       subtitle: "NUMBERS 1-45",
       shape: "rectangle",
@@ -1184,11 +1091,10 @@
       highlightInterval: null,
       timerInterval: null,
       minNumber: 1,
-      maxNumber: 45,
-      categoryId: 3
+      maxNumber: 45
     },
     knights: {
-      items: [],
+      numbers: [],
       title: "KNIGHTS DRAW",
       subtitle: "NUMBERS 1-25",
       shape: "circle",
@@ -1199,11 +1105,10 @@
       highlightInterval: null,
       timerInterval: null,
       minNumber: 1,
-      maxNumber: 25,
-      categoryId: 4
+      maxNumber: 25
     },
     "first-month": {
-      items: [],
+      numbers: [],
       title: "1ST OF THE MONTH",
       subtitle: "NUMBERS 1-30",
       shape: "rounded",
@@ -1214,8 +1119,7 @@
       highlightInterval: null,
       timerInterval: null,
       minNumber: 1,
-      maxNumber: 30,
-      categoryId: 5
+      maxNumber: 30
     },
     custom: {
       items: [],
@@ -1232,40 +1136,28 @@
       minNumber: 1,
       maxNumber: 100,
       bgColor: "blue",
-      itemColor: "yellow",
-      categoryId: 6
+      itemColor: "yellow"
     }
   };
   
   // Initialize the app
-  document.addEventListener("DOMContentLoaded", async function() {
-    try {
-      // Set current year in footer
-      document.getElementById("current-year").textContent = new Date().getFullYear();
-      
-      // Set current month in first-month page
-      document.getElementById("current-month").textContent = getMonthName();
-      
-      // Load data from Supabase
-      await loadAllData();
-      
-      // Initialize all pages
-      initializePage("batch");
-      initializePage("barangay");
-      initializePage("catoda");
-      initializePage("knights");
-      initializePage("first-month");
-      initializePage("custom");
-      
-      // Show home page by default
-      showPage("home-page");
-      
-      // Hide loading overlay
-      document.getElementById("loading-overlay").style.display = "none";
-    } catch (error) {
-      console.error("Error initializing app:", error);
-      showToast("Error loading data. Please refresh the page.");
-    }
+  document.addEventListener("DOMContentLoaded", function() {
+    // Set current year in footer
+    document.getElementById("current-year").textContent = new Date().getFullYear();
+    
+    // Set current month in first-month page
+    document.getElementById("current-month").textContent = getMonthName();
+    
+    // Initialize all pages
+    initializePage("batch");
+    initializePage("brgy");
+    initializePage("katoda");
+    initializePage("knights");
+    initializePage("first-month");
+    initializePage("custom");
+    
+    // Show home page by default
+    showPage("home-page");
   });
   
   // Helper functions
@@ -1275,168 +1167,6 @@
       "July", "August", "September", "October", "November", "December"
     ];
     return months[new Date().getMonth()];
-  }
-  
-  async function loadAllData() {
-    try {
-      // Load categories data
-      const { data: categoriesData, error: categoriesError } = await supabase
-        .from('categories')
-        .select('*');
-      
-      if (categoriesError) throw categoriesError;
-      
-      // Update category data
-      categoriesData.forEach(category => {
-        const type = category.name;
-        if (data[type]) {
-          data[type].title = category.title;
-          data[type].subtitle = category.subtitle;
-          data[type].shape = category.shape;
-          data[type].drawTime = category.draw_time;
-          data[type].categoryId = category.id;
-          
-          if (category.min_number !== null) {
-            data[type].minNumber = category.min_number;
-          }
-          
-          if (category.max_number !== null) {
-            data[type].maxNumber = category.max_number;
-          }
-          
-          // Update UI
-          const titleElement = document.getElementById(`${type}-title`);
-          const subtitleElement = document.getElementById(`${type}-subtitle`);
-          const titleInput = document.getElementById(`${type}-title-input`);
-          const subtitleInput = document.getElementById(`${type}-subtitle-input`);
-          
-          if (titleElement) titleElement.textContent = category.title;
-          if (subtitleElement) subtitleElement.textContent = category.subtitle;
-          if (titleInput) titleInput.value = category.title;
-          if (subtitleInput) subtitleInput.value = category.subtitle;
-          
-          // Load shape
-          const shapeSelect = document.getElementById(`${type}-shape`);
-          if (shapeSelect) {
-            for (let i = 0; i < shapeSelect.options.length; i++) {
-              if (shapeSelect.options[i].value === category.shape) {
-                shapeSelect.selectedIndex = i;
-                break;
-              }
-            }
-          }
-          
-          // Load draw time
-          const drawTimeInput = document.getElementById(`${type}-draw-time`);
-          if (drawTimeInput) {
-            drawTimeInput.value = category.draw_time;
-          }
-          
-          // Load min/max numbers
-          if (type === 'catoda' || type === 'knights' || type === 'first-month') {
-            const minInput = document.getElementById(`${type}-min`);
-            const maxInput = document.getElementById(`${type}-max`);
-            
-            if (minInput && category.min_number !== null) {
-              minInput.value = category.min_number;
-            }
-            
-            if (maxInput && category.max_number !== null) {
-              maxInput.value = category.max_number;
-            }
-          }
-        }
-      });
-      
-      // Load items for each category
-      for (const type in data) {
-        if (data[type].categoryId) {
-          await loadItems(type);
-          await loadWinners(type);
-        }
-      }
-    } catch (error) {
-      console.error("Error loading data:", error);
-      showToast("Error loading data from database");
-    }
-  }
-  
-  async function loadItems(type) {
-    try {
-      const { data: itemsData, error: itemsError } = await supabase
-        .from('items')
-        .select('*')
-        .eq('category_id', data[type].categoryId)
-        .eq('is_active', true)
-        .order('id');
-      
-      if (itemsError) throw itemsError;
-      
-      // Update items data
-      data[type].items = itemsData.map(item => ({
-        id: item.id,
-        value: item.value
-      }));
-      
-      // Update UI
-      renderItems(type);
-      
-      // Update textarea in settings
-      if (type === 'batch' || type === 'barangay') {
-        const namesInput = document.getElementById(`${type}-names-input`);
-        if (namesInput) {
-          namesInput.value = data[type].items.map(item => item.value).join('\n');
-        }
-      } else if (type === 'custom') {
-        const itemsInput = document.getElementById('custom-items-input');
-        if (itemsInput && data[type].items.length > 0) {
-          itemsInput.value = data[type].items.map(item => item.value).join('\n');
-        }
-      }
-    } catch (error) {
-      console.error(`Error loading ${type} items:`, error);
-      showToast(`Error loading ${type} items`);
-    }
-  }
-  
-  async function loadWinners(type) {
-    try {
-      const { data: winnersData, error: winnersError } = await supabase
-        .from('winners')
-        .select('*')
-        .eq('category_id', data[type].categoryId)
-        .order('drawn_at', { ascending: false });
-      
-      if (winnersError) throw winnersError;
-      
-      // Update winners list
-      const winnersList = document.getElementById(`${type}-winners-list`);
-      if (winnersList) {
-        winnersList.innerHTML = '';
-        
-        if (winnersData.length === 0) {
-          winnersList.innerHTML = '<div class="text-center p-4">No previous winners</div>';
-        } else {
-          winnersData.forEach(winner => {
-            const winnerItem = document.createElement('div');
-            winnerItem.className = 'winner-item';
-            
-            const date = new Date(winner.drawn_at);
-            const formattedDate = `${date.toLocaleDateString()} ${date.toLocaleTimeString()}`;
-            
-            winnerItem.innerHTML = `
-              <div>${winner.value}</div>
-              <div class="text-sm opacity-70">${formattedDate}</div>
-            `;
-            
-            winnersList.appendChild(winnerItem);
-          });
-        }
-      }
-    } catch (error) {
-      console.error(`Error loading ${type} winners:`, error);
-      showToast(`Error loading ${type} winners`);
-    }
   }
   
   function showPage(pageId) {
@@ -1479,162 +1209,92 @@
   }
   
   function initializePage(type) {
-    if (type === "batch" || type === "barangay") {
+    if (type === "batch" || type === "brgy") {
+      // Initialize name-based pages
+      addNames(type);
+      
       // Set up event listeners for settings
       document.getElementById(`${type}-title-input`).addEventListener("change", function() {
-        updateCategorySettings(type, { title: this.value });
+        data[type].title = this.value;
+        document.getElementById(`${type}-title`).textContent = this.value;
       });
       
       document.getElementById(`${type}-subtitle-input`).addEventListener("change", function() {
-        updateCategorySettings(type, { subtitle: this.value });
+        data[type].subtitle = this.value;
+        document.getElementById(`${type}-subtitle`).textContent = this.value;
       });
       
       document.getElementById(`${type}-shape`).addEventListener("change", function() {
-        updateCategorySettings(type, { shape: this.value });
+        data[type].shape = this.value;
+        renderItems(type);
       });
       
       document.getElementById(`${type}-draw-time`).addEventListener("change", function() {
-        updateCategorySettings(type, { drawTime: parseInt(this.value) || 45 });
+        data[type].drawTime = parseInt(this.value) || 45;
       });
-    } else if (type === "catoda" || type === "knights" || type === "first-month") {
+    } else if (type === "katoda" || type === "knights" || type === "first-month") {
+      // Initialize number-based pages
+      generateNumbers(type);
+      
       // Set up event listeners for settings
       document.getElementById(`${type}-title-input`).addEventListener("change", function() {
-        updateCategorySettings(type, { title: this.value });
+        data[type].title = this.value;
+        document.getElementById(`${type}-title`).textContent = this.value;
       });
       
       document.getElementById(`${type}-subtitle-input`).addEventListener("change", function() {
-        updateCategorySettings(type, { subtitle: this.value });
+        data[type].subtitle = this.value;
+        document.getElementById(`${type}-subtitle`).textContent = this.value;
       });
       
       document.getElementById(`${type}-shape`).addEventListener("change", function() {
-        updateCategorySettings(type, { shape: this.value });
+        data[type].shape = this.value;
+        renderItems(type);
       });
       
       document.getElementById(`${type}-draw-time`).addEventListener("change", function() {
-        updateCategorySettings(type, { drawTime: parseInt(this.value) || 45 });
+        data[type].drawTime = parseInt(this.value) || 45;
       });
       
       document.getElementById(`${type}-min`).addEventListener("change", function() {
-        updateCategorySettings(type, { minNumber: parseInt(this.value) || 1 });
+        data[type].minNumber = parseInt(this.value) || 1;
       });
       
       document.getElementById(`${type}-max`).addEventListener("change", function() {
-        updateCategorySettings(type, { maxNumber: parseInt(this.value) || 45 });
+        data[type].maxNumber = parseInt(this.value) || 45;
       });
     } else if (type === "custom") {
+      // Initialize custom page
+      
       // Set up event listeners for settings
       document.getElementById(`${type}-title-input`).addEventListener("change", function() {
-        updateCategorySettings(type, { title: this.value });
+        data[type].title = this.value;
+        document.getElementById(`${type}-title`).textContent = this.value;
       });
       
       document.getElementById(`${type}-subtitle-input`).addEventListener("change", function() {
-        updateCategorySettings(type, { subtitle: this.value });
+        data[type].subtitle = this.value;
+        document.getElementById(`${type}-subtitle`).textContent = this.value;
       });
       
       document.getElementById(`${type}-shape`).addEventListener("change", function() {
-        updateCategorySettings(type, { shape: this.value });
+        data[type].shape = this.value;
+        renderItems(type);
       });
       
       document.getElementById(`${type}-draw-time`).addEventListener("change", function() {
-        updateCategorySettings(type, { drawTime: parseInt(this.value) || 45 });
+        data[type].drawTime = parseInt(this.value) || 45;
         document.getElementById(`${type}-draw-time-value`).textContent = `${this.value} seconds`;
       });
     }
   }
   
-  async function updateCategorySettings(type, settings) {
-    try {
-      // Update local data
-      if (settings.title) {
-        data[type].title = settings.title;
-        document.getElementById(`${type}-title`).textContent = settings.title;
-      }
-      
-      if (settings.subtitle) {
-        data[type].subtitle = settings.subtitle;
-        document.getElementById(`${type}-subtitle`).textContent = settings.subtitle;
-      }
-      
-      if (settings.shape) {
-        data[type].shape = settings.shape;
-        renderItems(type);
-      }
-      
-      if (settings.drawTime) {
-        data[type].drawTime = settings.drawTime;
-      }
-      
-      if (settings.minNumber !== undefined) {
-        data[type].minNumber = settings.minNumber;
-      }
-      
-      if (settings.maxNumber !== undefined) {
-        data[type].maxNumber = settings.maxNumber;
-      }
-      
-      // Update database
-      const updateData = {};
-      if (settings.title) updateData.title = settings.title;
-      if (settings.subtitle) updateData.subtitle = settings.subtitle;
-      if (settings.shape) updateData.shape = settings.shape;
-      if (settings.drawTime) updateData.draw_time = settings.drawTime;
-      if (settings.minNumber !== undefined) updateData.min_number = settings.minNumber;
-      if (settings.maxNumber !== undefined) updateData.max_number = settings.maxNumber;
-      
-      const { error } = await supabase
-        .from('categories')
-        .update(updateData)
-        .eq('id', data[type].categoryId);
-      
-      if (error) throw error;
-      
-      showToast("Settings updated successfully");
-    } catch (error) {
-      console.error("Error updating settings:", error);
-      showToast("Error updating settings");
-    }
-  }
-  
-  async function addNames(type) {
-    try {
-      const input = document.getElementById(`${type}-names-input`).value;
-      if (!input.trim()) return;
-      
+  function addNames(type) {
+    const input = document.getElementById(`${type}-names-input`).value;
+    if (input.trim()) {
       const namesList = input.split("\n").map(name => name.trim()).filter(name => name !== "");
-      
-      // Clear existing items
-      const { error: deleteError } = await supabase
-        .from('items')
-        .update({ is_active: false })
-        .eq('category_id', data[type].categoryId);
-      
-      if (deleteError) throw deleteError;
-      
-      // Add new items
-      const newItems = namesList.map(name => ({
-        category_id: data[type].categoryId,
-        value: name,
-        is_active: true
-      }));
-      
-      const { data: insertedItems, error: insertError } = await supabase
-        .from('items')
-        .insert(newItems)
-        .select();
-      
-      if (insertError) throw insertError;
-      
-      // Update local data
-      data[type].items = insertedItems.map(item => ({
-        id: item.id,
-        value: item.value
-      }));
-      
+      data[type].names = namesList;
       renderItems(type);
-      showToast("Names added successfully");
-    } catch (error) {
-      console.error("Error adding names:", error);
-      showToast("Error adding names");
     }
   }
   
@@ -1648,64 +1308,34 @@
       if (text) {
         const itemsList = text.split("\n").map(item => item.trim()).filter(item => item !== "");
         
-        if (type === "batch" || type === "barangay") {
+        if (type === "batch" || type === "brgy") {
+          data[type].names = itemsList;
           document.getElementById(`${type}-names-input`).value = itemsList.join("\n");
         } else if (type === "custom") {
-          document.getElementById(`custom-items-input`).value = itemsList.join("\n");
+          data[type].items = itemsList;
+          document.getElementById(`${type}-items-input`).value = itemsList.join("\n");
         }
+        
+        renderItems(type);
       }
     };
     reader.readAsText(file);
   }
   
-  async function generateNumbers(type) {
-    try {
-      const min = parseInt(document.getElementById(`${type}-min`).value) || 1;
-      const max = parseInt(document.getElementById(`${type}-max`).value) || 45;
-      
-      // Update category settings
-      await updateCategorySettings(type, {
-        minNumber: min,
-        maxNumber: max
-      });
-      
-      // Clear existing items
-      const { error: deleteError } = await supabase
-        .from('items')
-        .update({ is_active: false })
-        .eq('category_id', data[type].categoryId);
-      
-      if (deleteError) throw deleteError;
-      
-      // Add new items
-      const newItems = [];
-      for (let i = min; i <= max; i++) {
-        newItems.push({
-          category_id: data[type].categoryId,
-          value: i.toString(),
-          is_active: true
-        });
-      }
-      
-      const { data: insertedItems, error: insertError } = await supabase
-        .from('items')
-        .insert(newItems)
-        .select();
-      
-      if (insertError) throw insertError;
-      
-      // Update local data
-      data[type].items = insertedItems.map(item => ({
-        id: item.id,
-        value: item.value
-      }));
-      
-      renderItems(type);
-      showToast("Numbers generated successfully");
-    } catch (error) {
-      console.error("Error generating numbers:", error);
-      showToast("Error generating numbers");
+  function generateNumbers(type) {
+    const min = parseInt(document.getElementById(`${type}-min`).value) || 1;
+    const max = parseInt(document.getElementById(`${type}-max`).value) || 45;
+    
+    const nums = [];
+    for (let i = min; i <= max; i++) {
+      nums.push(i);
     }
+    
+    data[type].numbers = nums;
+    data[type].minNumber = min;
+    data[type].maxNumber = max;
+    
+    renderItems(type);
   }
   
   function toggleCustomDrawType() {
@@ -1721,97 +1351,29 @@
     }
   }
   
-  async function addCustomItems() {
-    try {
-      const input = document.getElementById("custom-items-input").value;
-      if (!input.trim()) return;
-      
+  function addCustomItems() {
+    const input = document.getElementById("custom-items-input").value;
+    if (input.trim()) {
       const itemsList = input.split("\n").map(item => item.trim()).filter(item => item !== "");
-      
-      // Clear existing items
-      const { error: deleteError } = await supabase
-        .from('items')
-        .update({ is_active: false })
-        .eq('category_id', data.custom.categoryId);
-      
-      if (deleteError) throw deleteError;
-      
-      // Add new items
-      const newItems = itemsList.map(item => ({
-        category_id: data.custom.categoryId,
-        value: item,
-        is_active: true
-      }));
-      
-      const { data: insertedItems, error: insertError } = await supabase
-        .from('items')
-        .insert(newItems)
-        .select();
-      
-      if (insertError) throw insertError;
-      
-      // Update local data
-      data.custom.items = insertedItems.map(item => ({
-        id: item.id,
-        value: item.value
-      }));
-      
+      data.custom.items = itemsList;
       renderItems("custom");
-      showToast("Items added successfully");
-    } catch (error) {
-      console.error("Error adding custom items:", error);
-      showToast("Error adding custom items");
     }
   }
   
-  async function generateCustomNumbers() {
-    try {
-      const min = parseInt(document.getElementById("custom-min").value) || 1;
-      const max = parseInt(document.getElementById("custom-max").value) || 100;
-      
-      // Update category settings
-      await updateCategorySettings("custom", {
-        minNumber: min,
-        maxNumber: max
-      });
-      
-      // Clear existing items
-      const { error: deleteError } = await supabase
-        .from('items')
-        .update({ is_active: false })
-        .eq('category_id', data.custom.categoryId);
-      
-      if (deleteError) throw deleteError;
-      
-      // Add new items
-      const newItems = [];
-      for (let i = min; i <= max; i++) {
-        newItems.push({
-          category_id: data.custom.categoryId,
-          value: i.toString(),
-          is_active: true
-        });
-      }
-      
-      const { data: insertedItems, error: insertError } = await supabase
-        .from('items')
-        .insert(newItems)
-        .select();
-      
-      if (insertError) throw insertError;
-      
-      // Update local data
-      data.custom.items = insertedItems.map(item => ({
-        id: item.id,
-        value: item.value
-      }));
-      
-      renderItems("custom");
-      showToast("Numbers generated successfully");
-    } catch (error) {
-      console.error("Error generating custom numbers:", error);
-      showToast("Error generating custom numbers");
+  function generateCustomNumbers() {
+    const min = parseInt(document.getElementById("custom-min").value) || 1;
+    const max = parseInt(document.getElementById("custom-max").value) || 100;
+    
+    const nums = [];
+    for (let i = min; i <= max; i++) {
+      nums.push(i.toString());
     }
+    
+    data.custom.items = nums;
+    data.custom.minNumber = min;
+    data.custom.maxNumber = max;
+    
+    renderItems("custom");
   }
   
   function updateCustomBg() {
@@ -1848,15 +1410,16 @@
   
   function renderItems(type) {
     const grid = document.getElementById(`${type}-grid`);
-    if (!grid) return;
-    
     grid.innerHTML = "";
     
-    const items = data[type].items;
+    let items = [];
     
-    if (items.length === 0) {
-      grid.innerHTML = '<div class="col-span-full text-center p-4 bg-white bg-opacity-10 rounded">No items available. Add items in settings.</div>';
-      return;
+    if (type === "batch" || type === "brgy") {
+      items = data[type].names;
+    } else if (type === "katoda" || type === "knights" || type === "first-month") {
+      items = data[type].numbers;
+    } else if (type === "custom") {
+      items = data[type].items;
     }
     
     items.forEach((item, index) => {
@@ -1882,9 +1445,8 @@
       }
       
       itemElement.className = `item ${shapeClass}`;
-      itemElement.textContent = item.value;
+      itemElement.textContent = item;
       itemElement.dataset.index = index;
-      itemElement.dataset.id = item.id;
       
       if (data[type].highlightIndex === index) {
         itemElement.classList.add("highlight");
@@ -1919,10 +1481,18 @@
   }
   
   function startDraw(type) {
-    const items = data[type].items;
+    let items = [];
+    
+    if (type === "batch" || type === "brgy") {
+      items = data[type].names;
+    } else if (type === "katoda" || type === "knights" || type === "first-month") {
+      items = data[type].numbers;
+    } else if (type === "custom") {
+      items = data[type].items;
+    }
     
     if (items.length === 0) {
-      showToast("No items to draw");
+      alert("No items to draw");
       return;
     }
     
@@ -1956,7 +1526,14 @@
     heartbeatSound.loop = true;
     heartbeatSound.play();
     
-    const items = data[type].items;
+    let items = [];
+    if (type === "batch" || type === "brgy") {
+      items = data[type].names;
+    } else if (type === "katoda" || type === "knights" || type === "first-month") {
+      items = data[type].numbers;
+    } else if (type === "custom") {
+      items = data[type].items;
+    }
     
     let remainingTime = data[type].drawTime;
     const countdownDisplay = document.getElementById("countdown-display");
@@ -1989,82 +1566,58 @@
     }, 1000);
   }
   
-  async function selectWinner(type) {
-    try {
-      heartbeatSound.pause();
-      heartbeatSound.currentTime = 0;
-      
-      winnerSound.play();
-      
-      const items = data[type].items;
-      
-      const winnerIndex = Math.floor(Math.random() * items.length);
-      const winnerItem = items[winnerIndex];
-      
-      // Update UI
-      document.getElementById(`${type}-winner`).textContent = winnerItem.value;
-      document.getElementById(`${type}-winner-display`).style.display = "block";
-      
-      // Save winner to database
-      const { error: winnerError } = await supabase
-        .from('winners')
-        .insert({
-          category_id: data[type].categoryId,
-          item_id: winnerItem.id,
-          value: winnerItem.value
-        });
-      
-      if (winnerError) throw winnerError;
-      
-      // Mark item as inactive
-      const { error: updateError } = await supabase
-        .from('items')
-        .update({ is_active: false })
-        .eq('id', winnerItem.id);
-      
-      if (updateError) throw updateError;
-      
-      // Remove winner from local data
-      data[type].items = data[type].items.filter(item => item.id !== winnerItem.id);
-      
-      // Reset highlight
-      data[type].highlightIndex = null;
-      data[type].isDrawing = false;
-      
-      // Enable draw button
-      document.getElementById(`${type}-draw-btn`).disabled = false;
-      document.getElementById(`${type}-draw-btn`).classList.remove("btn-disabled");
-      
-      // Trigger confetti
-      confetti({
-        particleCount: 100,
-        spread: 70,
-        origin: { y: 0.6 }
-      });
-      
-      // Update UI
-      renderItems(type);
-      
-      // Reload winners
-      await loadWinners(type);
-    } catch (error) {
-      console.error("Error selecting winner:", error);
-      showToast("Error selecting winner");
+  function selectWinner(type) {
+    heartbeatSound.pause();
+    heartbeatSound.currentTime = 0;
+    
+    winnerSound.play();
+    
+    let items = [];
+    if (type === "batch" || type === "brgy") {
+      items = data[type].names;
+    } else if (type === "katoda" || type === "knights" || type === "first-month") {
+      items = data[type].numbers;
+    } else if (type === "custom") {
+      items = data[type].items;
     }
-  }
-  
-  function showToast(message) {
-    const toast = document.getElementById("toast");
-    const toastMessage = document.getElementById("toast-message");
     
-    toastMessage.textContent = message;
-    toast.classList.add("show");
+    const winnerIndex = Math.floor(Math.random() * items.length);
+    const winnerItem = items[winnerIndex];
     
-    setTimeout(() => {
-      toast.classList.remove("show");
-    }, 3000);
+    if (type === "batch" || type === "brgy" || type === "custom") {
+      data[type].winner = winnerItem;
+      document.getElementById(`${type}-winner`).textContent = winnerItem;
+    } else {
+      data[type].winner = winnerItem;
+      document.getElementById(`${type}-winner`).textContent = winnerItem;
+    }
+    
+    document.getElementById(`${type}-winner-display`).style.display = "block";
+    data[type].highlightIndex = null;
+    data[type].isDrawing = false;
+    
+    // Enable draw button
+    document.getElementById(`${type}-draw-btn`).disabled = false;
+    document.getElementById(`${type}-draw-btn`).classList.remove("btn-disabled");
+    
+    // Trigger confetti
+    confetti({
+      particleCount: 100,
+      spread: 70,
+      origin: { y: 0.6 }
+    });
+    
+    // Remove winner from the list
+    if (type === "batch" || type === "brgy") {
+      data[type].names.splice(winnerIndex, 1);
+    } else if (type === "katoda" || type === "knights" || type === "first-month") {
+      data[type].numbers.splice(winnerIndex, 1);
+    } else if (type === "custom") {
+      data[type].items.splice(winnerIndex, 1);
+    }
+    
+    renderItems(type);
   }
 </script>
 </body>
 </html>
-
