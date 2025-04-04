@@ -442,7 +442,7 @@
           <h2 class="text-xl font-bold text-center text-gray-800">1st of Month</h2>
           <p class="text-center text-gray-600 mb-4">Draw numbers from 1-30</p>
           <div class="flex justify-center mb-4">
-            <img src="https://img.freepik.com/free-vector/calendar-icon-white-background_1308-84634.jpg?w=826&t=st=1712022400~exp=1712023000~hmac=c0c2b679b4a8f8c0d0b2c9c3d3c3c3c3c3c3c3c3c3c3c3c3c3c3c3c3c3c3c3" alt="1st of Month icon" class="h-36 w-36 object-contain rounded-lg">
+            <img src="https://img.freepik.com/free-vector/calendar-icon-white-background_1308-84634.jpg?w=826&t=st=1712022400~exp=1712023000~hmac=c0c2b679b4a8f8c0d0b2c9c3d3c3c3c3c3c3c3c3c3c3c3c3c3c3c3c3c3c3" alt="1st of Month icon" class="h-36 w-36 object-contain rounded-lg">
           </div>
           <div class="flex justify-center">
             <button class="btn btn-primary" onclick="showPage('first-month-page')">Select</button>
@@ -456,7 +456,7 @@
           <h2 class="text-xl font-bold text-center text-gray-800">Custom Draw</h2>
           <p class="text-center text-gray-600 mb-4">Create your own custom drawing</p>
           <div class="flex justify-center mb-4">
-            <img src="https://img.freepik.com/free-vector/settings-concept-illustration_114360-3754.jpg?w=826&t=st=1712022500~exp=1712023100~hmac=c0c2b679b4a8f8c0d0b2c9c3d3c3c3c3c3c3c3c3c3c3c3c3c3c3c3" alt="Custom Draw icon" class="h-36 w-36 object-contain rounded-lg">
+            <img src="https://img.freepik.com/free-vector/settings-concept-illustration_114360-3754.jpg?w=826&t=st=1712022500~exp=1712023100~hmac=c0c2b679b4a8f8c0d0b2c9c3d3c3c3c3c3c3c3c3c3c3c3c3c3c3c3c3c3c3" alt="Custom Draw icon" class="h-36 w-36 object-contain rounded-lg">
           </div>
           <div class="flex justify-center">
             <button class="btn btn-secondary" onclick="showPage('custom-page')">Create Custom</button>
@@ -741,6 +741,8 @@ VICKY</textarea>
       <div>
         <h1 id="knights-title" class="text-3xl font-bold mb-2 text-center">KNIGHTS DRAW</h1>
         <h2 id="knights-subtitle" class="text-xl mb-8 text-center">NUMBERS 1-25</h2>
+      </div>
+      <div class="ml-3">  class="text-xl mb-8 text-center">NUMBERS 1-25</h2>
       </div>
       <div class="ml-3">🛡️</div>
     </div>
@@ -1047,11 +1049,15 @@ VICKY</textarea>
 <!-- Countdown Display -->
 <div id="countdown-display" class="countdown" style="display: none;"></div>
 
+<!-- Audio files -->
+<audio id="drawSound" src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/45secs-lFVnli6yXg1V2K303drqsvS9BkPBYG.mp3" preload="auto"></audio>
+<audio id="winnerSound" src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/winner-ty9icimv3hynYwclOnjgkbWId2ZjbW.mp3" preload="auto"></audio>
+
 <script>
-  // Audio elements - bootstrapped directly into the code
-  const drawSound = new Audio("https://hebbkx1anhila5yf.public.blob.vercel-storage.com/45secs-lFVnli6yXg1V2K303drqsvS9BkPBYG.mp3");
-  const winnerSound = new Audio("https://hebbkx1anhila5yf.public.blob.vercel-storage.com/winner-ty9icimv3hynYwclOnjgkbWId2ZjbW.mp3");
-  const heartbeatSound = new Audio("https://assets.mixkit.co/active_storage/sfx/2004/2004.wav");
+  // Audio elements
+  let drawSound = document.getElementById('drawSound');
+  let winnerSound = document.getElementById('winnerSound');
+  let heartbeatSound = new Audio("https://assets.mixkit.co/active_storage/sfx/2004/2004.wav");
   
   // Data storage
   const data = {
@@ -1179,14 +1185,24 @@ VICKY</textarea>
     // Show selected page
     document.getElementById(pageId).classList.add("active");
     
-    // Play sound if not going to home page and it's not the first button (batch)
-    if (pageId !== 'home-page' && pageId !== 'batch-page') {
-      drawSound.play();
-    }
+    // Stop any sounds that might be playing
+    drawSound.pause();
+    drawSound.currentTime = 0;
+    heartbeatSound.pause();
+    heartbeatSound.currentTime = 0;
+    winnerSound.pause();
+    winnerSound.currentTime = 0;
   }
   
   function toggleSettings(settingsId) {
     const settings = document.getElementById(settingsId);
+    const type = settingsId.split('-')[0];
+    
+    // Don't show settings if drawing is in progress
+    if (data[type] && data[type].isDrawing) {
+      return;
+    }
+    
     if (settings.style.display === "none") {
       settings.style.display = "flex";
     } else {
@@ -1502,10 +1518,18 @@ VICKY</textarea>
     }
     
     data[type].isDrawing = true;
-    toggleSettings(`${type}-settings`);
+    
+    // Hide settings if they're open
+    document.getElementById(`${type}-settings`).style.display = "none";
+    
+    // Disable settings button during drawing
+    document.querySelector(`#${type}-page .settings-btn`).style.pointerEvents = "none";
+    document.querySelector(`#${type}-page .settings-btn`).style.opacity = "0.5";
+    
     data[type].winner = "";
     
-    // Play draw sound
+    // Start playing draw sound
+    drawSound.currentTime = 0;
     drawSound.play();
     
     // Disable draw button
@@ -1575,20 +1599,15 @@ VICKY</textarea>
   }
   
   function selectWinner(type) {
+    // Stop all sounds
     heartbeatSound.pause();
     heartbeatSound.currentTime = 0;
+    drawSound.pause();
+    drawSound.currentTime = 0;
     
-    // Play winner sound and set it to loop until user interaction
+    // Play winner sound
     winnerSound.loop = true;
     winnerSound.play();
-    
-    // Add event listener to stop the winner sound when user clicks anywhere
-    document.addEventListener('click', function stopWinnerSound() {
-      winnerSound.pause();
-      winnerSound.currentTime = 0;
-      winnerSound.loop = false;
-      document.removeEventListener('click', stopWinnerSound);
-    });
     
     let items = [];
     if (type === "batch" || type === "brgy") {
@@ -1614,6 +1633,10 @@ VICKY</textarea>
     data[type].highlightIndex = null;
     data[type].isDrawing = false;
     
+    // Re-enable settings button
+    document.querySelector(`#${type}-page .settings-btn`).style.pointerEvents = "auto";
+    document.querySelector(`#${type}-page .settings-btn`).style.opacity = "1";
+    
     // Enable draw button
     document.getElementById(`${type}-draw-btn`).disabled = false;
     document.getElementById(`${type}-draw-btn`).classList.remove("btn-disabled");
@@ -1637,4 +1660,5 @@ VICKY</textarea>
     renderItems(type);
   }
 </script>
-
+</body>
+</html>
