@@ -366,6 +366,52 @@
     align-items: center;
     font-weight: bold;
   }
+
+  .database-btn {
+    position: absolute;
+    top: 1rem;
+    right: 8rem;
+    z-index: 10;
+    background: transparent;
+    color: white;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+  }
+
+  .toast {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #2d3748;
+    color: white;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    z-index: 100;
+    transition: all 0.3s ease;
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  .toast.show {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .toast.success {
+    border-left: 4px solid #48bb78;
+  }
+
+  .toast.error {
+    border-left: 4px solid #f56565;
+  }
+
+  .toast.info {
+    border-left: 4px solid #4299e1;
+  }
 </style>
 </head>
 <body>
@@ -378,6 +424,13 @@
   <div class="container mx-auto py-8">
     <h1 class="text-4xl font-bold text-center mb-4">Random Picker</h1>
     <p class="text-xl text-center mb-8">Select a drawing option below to get started</p>
+    
+    <!-- Database Settings Button -->
+    <div class="flex justify-center mb-8">
+      <button class="btn btn-secondary" onclick="toggleSettings('database-settings')">
+        🗄️ Database Settings
+      </button>
+    </div>
     
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 max-w-6xl mx-auto">
       <!-- Batch Card -->
@@ -479,6 +532,9 @@
   <button class="settings-btn" onclick="toggleSettings('batch-settings')">
     ⚙️ Settings
   </button>
+  <button class="database-btn" onclick="toggleSettings('batch-database')">
+    🗄️ Database
+  </button>
   
   <div class="container mx-auto pt-16">
     <h1 id="batch-title" class="text-3xl font-bold mb-2 text-center">Batch 83 Geremyunhan</h1>
@@ -560,6 +616,31 @@ Merlinda</textarea>
       </div>
     </div>
   </div>
+  
+  <!-- Database Modal -->
+  <div id="batch-database" class="modal" style="display: none;">
+    <div class="modal-content">
+      <div class="flex justify-between items-center mb-4">
+        <h2 class="text-xl font-bold">Database Operations</h2>
+        <button onclick="toggleSettings('batch-database')">✕</button>
+      </div>
+      
+      <div class="space-y-4">
+        <div>
+          <label class="block mb-2">Save/Load Data:</label>
+          <div class="flex gap-2">
+            <button class="btn btn-primary flex-1" onclick="saveDataToAPI('batch')">Save Data</button>
+            <button class="btn btn-secondary flex-1" onclick="loadDataFromAPI('batch')">Load Data</button>
+          </div>
+        </div>
+        
+        <div>
+          <label class="block mb-2">Data ID:</label>
+          <input id="batch-data-id" type="text" class="input" placeholder="Enter a unique ID for this data set">
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 
 <!-- Brgy Page -->
@@ -569,6 +650,9 @@ Merlinda</textarea>
   </button>
   <button class="settings-btn" onclick="toggleSettings('brgy-settings')">
     ⚙️ Settings
+  </button>
+  <button class="database-btn" onclick="toggleSettings('brgy-database')">
+    🗄️ Database
   </button>
   
   <div class="container mx-auto pt-16">
@@ -645,6 +729,31 @@ VICKY</textarea>
       </div>
     </div>
   </div>
+  
+  <!-- Database Modal -->
+  <div id="brgy-database" class="modal" style="display: none;">
+    <div class="modal-content">
+      <div class="flex justify-between items-center mb-4">
+        <h2 class="text-xl font-bold">Database Operations</h2>
+        <button onclick="toggleSettings('brgy-database')">✕</button>
+      </div>
+      
+      <div class="space-y-4">
+        <div>
+          <label class="block mb-2">Save/Load Data:</label>
+          <div class="flex gap-2">
+            <button class="btn btn-primary flex-1" onclick="saveDataToAPI('brgy')">Save Data</button>
+            <button class="btn btn-secondary flex-1" onclick="loadDataFromAPI('brgy')">Load Data</button>
+          </div>
+        </div>
+        
+        <div>
+          <label class="block mb-2">Data ID:</label>
+          <input id="brgy-data-id" type="text" class="input" placeholder="Enter a unique ID for this data set">
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 
 <!-- Katoda Page -->
@@ -654,6 +763,9 @@ VICKY</textarea>
   </button>
   <button class="settings-btn" onclick="toggleSettings('katoda-settings')">
     ⚙️ Settings
+  </button>
+  <button class="database-btn" onclick="toggleSettings('katoda-database')">
+    🗄️ Database
   </button>
   
   <div class="container mx-auto pt-16">
@@ -724,6 +836,31 @@ VICKY</textarea>
       </div>
     </div>
   </div>
+  
+  <!-- Database Modal -->
+  <div id="katoda-database" class="modal" style="display: none;">
+    <div class="modal-content">
+      <div class="flex justify-between items-center mb-4">
+        <h2 class="text-xl font-bold">Database Operations</h2>
+        <button onclick="toggleSettings('katoda-database')">✕</button>
+      </div>
+      
+      <div class="space-y-4">
+        <div>
+          <label class="block mb-2">Save/Load Data:</label>
+          <div class="flex gap-2">
+            <button class="btn btn-primary flex-1" onclick="saveDataToAPI('katoda')">Save Data</button>
+            <button class="btn btn-secondary flex-1" onclick="loadDataFromAPI('katoda')">Load Data</button>
+          </div>
+        </div>
+        
+        <div>
+          <label class="block mb-2">Data ID:</label>
+          <input id="katoda-data-id" type="text" class="input" placeholder="Enter a unique ID for this data set">
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 
 <!-- Knights Page -->
@@ -734,6 +871,9 @@ VICKY</textarea>
   <button class="settings-btn" onclick="toggleSettings('knights-settings')">
     ⚙️ Settings
   </button>
+  <button class="database-btn" onclick="toggleSettings('knights-database')">
+    🗄️ Database
+  </button>
   
   <div class="container mx-auto pt-16">
     <div class="flex items-center justify-center mb-4">
@@ -741,8 +881,6 @@ VICKY</textarea>
       <div>
         <h1 id="knights-title" class="text-3xl font-bold mb-2 text-center">KNIGHTS DRAW</h1>
         <h2 id="knights-subtitle" class="text-xl mb-8 text-center">NUMBERS 1-25</h2>
-      </div>
-      <div class="ml-3">  class="text-xl mb-8 text-center">NUMBERS 1-25</h2>
       </div>
       <div class="ml-3">🛡️</div>
     </div>
@@ -811,6 +949,31 @@ VICKY</textarea>
       </div>
     </div>
   </div>
+  
+  <!-- Database Modal -->
+  <div id="knights-database" class="modal" style="display: none;">
+    <div class="modal-content" style="background-color: #2b6cb0; border: 2px solid #f6e05e;">
+      <div class="flex justify-between items-center mb-4">
+        <h2 class="text-xl font-bold">Database Operations</h2>
+        <button onclick="toggleSettings('knights-database')">✕</button>
+      </div>
+      
+      <div class="space-y-4">
+        <div>
+          <label class="block mb-2">Save/Load Data:</label>
+          <div class="flex gap-2">
+            <button class="btn btn-blue flex-1" onclick="saveDataToAPI('knights')">Save Data</button>
+            <button class="btn btn-secondary flex-1" onclick="loadDataFromAPI('knights')">Load Data</button>
+          </div>
+        </div>
+        
+        <div>
+          <label class="block mb-2">Data ID:</label>
+          <input id="knights-data-id" type="text" class="input" placeholder="Enter a unique ID for this data set">
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 
 <!-- First Month Page -->
@@ -820,6 +983,9 @@ VICKY</textarea>
   </button>
   <button class="settings-btn" onclick="toggleSettings('first-month-settings')">
     ⚙️ Settings
+  </button>
+  <button class="database-btn" onclick="toggleSettings('first-month-database')">
+    🗄️ Database
   </button>
   
   <div class="container mx-auto pt-16">
@@ -897,6 +1063,31 @@ VICKY</textarea>
       </div>
     </div>
   </div>
+  
+  <!-- Database Modal -->
+  <div id="first-month-database" class="modal" style="display: none;">
+    <div class="modal-content" style="background-color: #276749; border: 2px solid #9ae6b4;">
+      <div class="flex justify-between items-center mb-4">
+        <h2 class="text-xl font-bold">Database Operations</h2>
+        <button onclick="toggleSettings('first-month-database')">✕</button>
+      </div>
+      
+      <div class="space-y-4">
+        <div>
+          <label class="block mb-2">Save/Load Data:</label>
+          <div class="flex gap-2">
+            <button class="btn btn-green flex-1" onclick="saveDataToAPI('first-month')">Save Data</button>
+            <button class="btn btn-secondary flex-1" onclick="loadDataFromAPI('first-month')">Load Data</button>
+          </div>
+        </div>
+        
+        <div>
+          <label class="block mb-2">Data ID:</label>
+          <input id="first-month-data-id" type="text" class="input" placeholder="Enter a unique ID for this data set">
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 
 <!-- Custom Page -->
@@ -906,6 +1097,9 @@ VICKY</textarea>
   </button>
   <button class="settings-btn" onclick="toggleSettings('custom-settings')">
     ⚙️ Settings
+  </button>
+  <button class="database-btn" onclick="toggleSettings('custom-database')">
+    🗄️ Database
   </button>
   
   <div class="container mx-auto pt-16">
@@ -1044,6 +1238,71 @@ VICKY</textarea>
       </div>
     </div>
   </div>
+  
+  <!-- Database Modal -->
+  <div id="custom-database" class="modal" style="display: none;">
+    <div class="modal-content">
+      <div class="flex justify-between items-center mb-4">
+        <h2 class="text-xl font-bold">Database Operations</h2>
+        <button onclick="toggleSettings('custom-database')">✕</button>
+      </div>
+      
+      <div class="space-y-4">
+        <div>
+          <label class="block mb-2">Save/Load Data:</label>
+          <div class="flex gap-2">
+            <button class="btn btn-secondary flex-1" onclick="saveDataToAPI('custom')">Save Data</button>
+            <button class="btn btn-primary flex-1" onclick="loadDataFromAPI('custom')">Load Data</button>
+          </div>
+        </div>
+        
+        <div>
+          <label class="block mb-2">Data ID:</label>
+          <input id="custom-data-id" type="text" class="input" placeholder="Enter a unique ID for this data set">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Database Settings Modal -->
+<div id="database-settings" class="modal" style="display: none;">
+  <div class="modal-content">
+    <div class="flex justify-between items-center mb-4">
+      <h2 class="text-xl font-bold">Database Settings</h2>
+      <button onclick="toggleSettings('database-settings')">✕</button>
+    </div>
+    
+    <div class="space-y-4">
+      <div>
+        <label class="block mb-2">API Endpoint:</label>
+        <input id="api-endpoint" type="text" class="input" value="https://jsonbin.io/api/v3/b" placeholder="Enter API endpoint URL">
+      </div>
+      
+      <div>
+        <label class="block mb-2">API Key:</label>
+        <input id="api-key" type="text" class="input" placeholder="Enter your API key">
+      </div>
+      
+      <div>
+        <label class="block mb-2">Test Connection:</label>
+        <button class="btn btn-primary w-full" onclick="testAPIConnection()">Test Connection</button>
+      </div>
+      
+      <div>
+        <label class="block mb-2">Saved Data IDs:</label>
+        <div id="saved-data-list" class="bg-gray-700 p-2 rounded-md min-h-[100px] max-h-[200px] overflow-y-auto">
+          <p class="text-gray-400 text-center">No saved data found</p>
+        </div>
+        <button class="btn btn-secondary w-full mt-2" onclick="refreshSavedDataList()">Refresh List</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Toast Notification -->
+<div id="toast" class="toast">
+  <div id="toast-message"></div>
 </div>
 
 <!-- Countdown Display -->
@@ -1146,6 +1405,13 @@ VICKY</textarea>
     }
   };
   
+  // Database settings
+  const dbSettings = {
+    endpoint: "https://jsonbin.io/api/v3/b",
+    apiKey: "",
+    savedData: {}
+  };
+  
   // Initialize the app
   document.addEventListener("DOMContentLoaded", function() {
     // Set current year in footer
@@ -1161,6 +1427,9 @@ VICKY</textarea>
     initializePage("knights");
     initializePage("first-month");
     initializePage("custom");
+    
+    // Load database settings from localStorage
+    loadDatabaseSettings();
     
     // Show home page by default
     showPage("home-page");
@@ -1204,6 +1473,11 @@ VICKY</textarea>
     }
     
     if (settings.style.display === "none") {
+      settings.style.display = "flex";
+    } else {
+      settings.style.display = "none";
+    }
+  }  {
       settings.style.display = "flex";
     } else {
       settings.style.display = "none";
@@ -1522,15 +1796,18 @@ VICKY</textarea>
     // Hide settings if they're open
     document.getElementById(`${type}-settings`).style.display = "none";
     
+    // Hide database modal if it's open
+    document.getElementById(`${type}-database`).style.display = "none";
+    
     // Disable settings button during drawing
     document.querySelector(`#${type}-page .settings-btn`).style.pointerEvents = "none";
     document.querySelector(`#${type}-page .settings-btn`).style.opacity = "0.5";
     
-    data[type].winner = "";
+    // Disable database button during drawing
+    document.querySelector(`#${type}-page .database-btn`).style.pointerEvents = "none";
+    document.querySelector(`#${type}-page .database-btn`).style.opacity = "0.5";
     
-    // Start playing draw sound
-    drawSound.currentTime = 0;
-    drawSound.play();
+    data[type].winner = "";
     
     // Disable draw button
     document.getElementById(`${type}-draw-btn`).disabled = true;
@@ -1555,6 +1832,10 @@ VICKY</textarea>
   }
   
   function startHighlighting(type) {
+    // Start playing draw sound only when highlighting begins
+    drawSound.currentTime = 0;
+    drawSound.play();
+    
     heartbeatSound.loop = true;
     heartbeatSound.play();
     
@@ -1606,7 +1887,7 @@ VICKY</textarea>
     drawSound.currentTime = 0;
     
     // Play winner sound
-    winnerSound.loop = true;
+    winnerSound.currentTime = 0;
     winnerSound.play();
     
     let items = [];
@@ -1637,6 +1918,10 @@ VICKY</textarea>
     document.querySelector(`#${type}-page .settings-btn`).style.pointerEvents = "auto";
     document.querySelector(`#${type}-page .settings-btn`).style.opacity = "1";
     
+    // Re-enable database button
+    document.querySelector(`#${type}-page .database-btn`).style.pointerEvents = "auto";
+    document.querySelector(`#${type}-page .database-btn`).style.opacity = "1";
+    
     // Enable draw button
     document.getElementById(`${type}-draw-btn`).disabled = false;
     document.getElementById(`${type}-draw-btn`).classList.remove("btn-disabled");
@@ -1658,6 +1943,325 @@ VICKY</textarea>
     }
     
     renderItems(type);
+  }
+  
+  // Database functions
+  function loadDatabaseSettings() {
+    const savedSettings = localStorage.getItem('randomPickerDBSettings');
+    if (savedSettings) {
+      const settings = JSON.parse(savedSettings);
+      dbSettings.endpoint = settings.endpoint || "https://jsonbin.io/api/v3/b";
+      dbSettings.apiKey = settings.apiKey || "";
+      dbSettings.savedData = settings.savedData || {};
+      
+      document.getElementById('api-endpoint').value = dbSettings.endpoint;
+      document.getElementById('api-key').value = dbSettings.apiKey;
+      
+      refreshSavedDataList();
+    }
+  }
+  
+  function saveDatabaseSettings() {
+    dbSettings.endpoint = document.getElementById('api-endpoint').value;
+    dbSettings.apiKey = document.getElementById('api-key').value;
+    
+    localStorage.setItem('randomPickerDBSettings', JSON.stringify(dbSettings));
+    showToast("Database settings saved", "success");
+  }
+  
+  function testAPIConnection() {
+    const endpoint = document.getElementById('api-endpoint').value;
+    const apiKey = document.getElementById('api-key').value;
+    
+    if (!endpoint || !apiKey) {
+      showToast("Please enter API endpoint and API key", "error");
+      return;
+    }
+    
+    showToast("Testing connection...", "info");
+    
+    // Save settings first
+    saveDatabaseSettings();
+    
+    // Test connection by making a simple request
+    fetch(`${endpoint}/test`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Master-Key': apiKey
+      }
+    })
+    .then(response => {
+      if (response.ok) {
+        showToast("Connection successful!", "success");
+      } else {
+        showToast("Connection failed: " + response.statusText, "error");
+      }
+    })
+    .catch(error => {
+      showToast("Connection error: " + error.message, "error");
+    });
+  }
+  
+  function saveDataToAPI(type) {
+    const dataId = document.getElementById(`${type}-data-id`).value;
+    
+    if (!dataId) {
+      showToast("Please enter a data ID", "error");
+      return;
+    }
+    
+    if (!dbSettings.apiKey) {
+      showToast("Please set up your API key in Database Settings", "error");
+      toggleSettings('database-settings');
+      return;
+    }
+    
+    showToast("Saving data...", "info");
+    
+    const dataToSave = {
+      type: type,
+      timestamp: new Date().toISOString(),
+      data: JSON.parse(JSON.stringify(data[type])) // Deep copy to remove circular references
+    };
+    
+    // Remove circular references and functions
+    delete dataToSave.data.highlightInterval;
+    delete dataToSave.data.timerInterval;
+    
+    fetch(dbSettings.endpoint, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Master-Key': dbSettings.apiKey
+      },
+      body: JSON.stringify(dataToSave)
+    })
+    .then(response => response.json())
+    .then(result => {
+      if (result.metadata && result.metadata.id) {
+        // Save the ID for future reference
+        dbSettings.savedData[dataId] = {
+          binId: result.metadata.id,
+          type: type,
+          timestamp: dataToSave.timestamp
+        };
+        
+        localStorage.setItem('randomPickerDBSettings', JSON.stringify(dbSettings));
+        showToast("Data saved successfully!", "success");
+        refreshSavedDataList();
+      } else {
+        showToast("Error saving data: " + JSON.stringify(result), "error");
+      }
+    })
+    .catch(error => {
+      showToast("Error saving data: " + error.message, "error");
+    });
+  }
+  
+  function loadDataFromAPI(type) {
+    const dataId = document.getElementById(`${type}-data-id`).value;
+    
+    if (!dataId) {
+      // Check if we have any saved data for this type
+      const savedIds = Object.keys(dbSettings.savedData).filter(id => dbSettings.savedData[id].type === type);
+      
+      if (savedIds.length > 0) {
+        // Use the most recent one
+        const mostRecentId = savedIds.sort((a, b) => {
+          return new Date(dbSettings.savedData[b].timestamp) - new Date(dbSettings.savedData[a].timestamp);
+        })[0];
+        
+        document.getElementById(`${type}-data-id`).value = mostRecentId;
+        loadDataFromAPI(type); // Call again with the ID set
+        return;
+      } else {
+        showToast("Please enter a data ID", "error");
+        return;
+      }
+    }
+    
+    if (!dbSettings.apiKey) {
+      showToast("Please set up your API key in Database Settings", "error");
+      toggleSettings('database-settings');
+      return;
+    }
+    
+    const savedData = dbSettings.savedData[dataId];
+    if (!savedData || !savedData.binId) {
+      showToast("No saved data found with this ID", "error");
+      return;
+    }
+    
+    showToast("Loading data...", "info");
+    
+    fetch(`${dbSettings.endpoint}/${savedData.binId}`, {
+      method: 'GET',
+      headers: {
+        'X-Master-Key': dbSettings.apiKey
+      }
+    })
+    .then(response => response.json())
+    .then(result => {
+      if (result.record && result.record.data) {
+        // Update the data
+        const loadedData = result.record.data;
+        
+        // Update all properties except for the ones that should be preserved
+        for (const key in loadedData) {
+          if (key !== 'highlightInterval' && key !== 'timerInterval' && key !== 'isDrawing') {
+            data[type][key] = loadedData[key];
+          }
+        }
+        
+        // Update UI elements
+        document.getElementById(`${type}-title`).textContent = data[type].title;
+        document.getElementById(`${type}-subtitle`).textContent = data[type].subtitle;
+        document.getElementById(`${type}-title-input`).value = data[type].title;
+        document.getElementById(`${type}-subtitle-input`).value = data[type].subtitle;
+        
+        if (type === "batch" || type === "brgy") {
+          document.getElementById(`${type}-names-input`).value = data[type].names.join("\n");
+        } else if (type === "katoda" || type === "knights" || type === "first-month") {
+          document.getElementById(`${type}-min`).value = data[type].minNumber;
+          document.getElementById(`${type}-max`).value = data[type].maxNumber;
+        } else if (type === "custom") {
+          if (data[type].drawType === "text") {
+            document.getElementById("custom-items-input").value = data[type].items.join("\n");
+          } else {
+            document.getElementById("custom-min").value = data[type].minNumber;
+            document.getElementById("custom-max").value = data[type].maxNumber;
+          }
+          
+          document.getElementById("custom-draw-type").value = data[type].drawType;
+          document.getElementById("custom-shape").value = data[type].shape;
+          document.getElementById("custom-bg-color").value = data[type].bgColor;
+          document.getElementById("custom-item-color").value = data[type].itemColor;
+          
+          toggleCustomDrawType();
+          updateCustomBg();
+        }
+        
+        document.getElementById(`${type}-shape`).value = data[type].shape;
+        document.getElementById(`${type}-draw-time`).value = data[type].drawTime;
+        
+        renderItems(type);
+        showToast("Data loaded successfully!", "success");
+      } else {
+        showToast("Error loading data: " + JSON.stringify(result), "error");
+      }
+    })
+    .catch(error => {
+      showToast("Error loading data: " + error.message, "error");
+    });
+  }
+  
+  function refreshSavedDataList() {
+    const listElement = document.getElementById('saved-data-list');
+    listElement.innerHTML = '';
+    
+    const savedIds = Object.keys(dbSettings.savedData);
+    
+    if (savedIds.length === 0) {
+      listElement.innerHTML = '<p class="text-gray-400 text-center">No saved data found</p>';
+      return;
+    }
+    
+    savedIds.forEach(id => {
+      const item = dbSettings.savedData[id];
+      const date = new Date(item.timestamp).toLocaleString();
+      
+      const itemElement = document.createElement('div');
+      itemElement.className = 'bg-gray-800 p-2 mb-2 rounded-md';
+      itemElement.innerHTML = `
+        <div class="flex justify-between items-center">
+          <div>
+            <p class="font-bold">${id}</p>
+            <p class="text-sm text-gray-400">${item.type} - ${date}</p>
+          </div>
+          <div>
+            <button class="text-blue-400 hover:text-blue-300 mr-2" onclick="loadSavedData('${id}')">Load</button>
+            <button class="text-red-400 hover:text-red-300" onclick="deleteSavedData('${id}')">Delete</button>
+          </div>
+        </div>
+      `;
+      
+      listElement.appendChild(itemElement);
+    });
+  }
+  
+  function loadSavedData(id) {
+    const item = dbSettings.savedData[id];
+    if (!item) return;
+    
+    // Set the data ID in the appropriate field
+    document.getElementById(`${item.type}-data-id`).value = id;
+    
+    // Show the appropriate page
+    if (item.type === "batch") showPage("batch-page");
+    else if (item.type === "brgy") showPage("brgy-page");
+    else if (item.type === "katoda") showPage("katoda-page");
+    else if (item.type === "knights") showPage("knights-page");
+    else if (item.type === "first-month") showPage("first-month-page");
+    else if (item.type === "custom") showPage("custom-page");
+    
+    // Load the data
+    loadDataFromAPI(item.type);
+    
+    // Close the database settings modal
+    toggleSettings('database-settings');
+  }
+  
+  function deleteSavedData(id) {
+    if (!confirm(`Are you sure you want to delete the saved data "${id}"?`)) {
+      return;
+    }
+    
+    const item = dbSettings.savedData[id];
+    if (!item || !item.binId) return;
+    
+    fetch(`${dbSettings.endpoint}/${item.binId}`, {
+      method: 'DELETE',
+      headers: {
+        'X-Master-Key': dbSettings.apiKey
+      }
+    })
+    .then(response => response.json())
+    .then(result => {
+      if (result.metadata && result.metadata.id) {
+        // Remove from local storage
+        delete dbSettings.savedData[id];
+        localStorage.setItem('randomPickerDBSettings', JSON.stringify(dbSettings));
+        
+        showToast("Data deleted successfully!", "success");
+        refreshSavedDataList();
+      } else {
+        showToast("Error deleting data: " + JSON.stringify(result), "error");
+      }
+    })
+    .catch(error => {
+      showToast("Error deleting data: " + error.message, "error");
+    });
+  }
+  
+  // Toast notification
+  function showToast(message, type = "info") {
+    const toast = document.getElementById("toast");
+    const toastMessage = document.getElementById("toast-message");
+    
+    toast.className = "toast";
+    toast.classList.add(type);
+    toastMessage.textContent = message;
+    
+    // Show the toast
+    setTimeout(() => {
+      toast.classList.add("show");
+    }, 100);
+    
+    // Hide the toast after 3 seconds
+    setTimeout(() => {
+      toast.classList.remove("show");
+    }, 3000);
   }
 </script>
 </body>
