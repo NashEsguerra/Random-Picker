@@ -1130,9 +1130,8 @@
     <div id="countdown-display" class="countdown" style="display: none;"></div>
 
     <!-- Audio elements -->
-    <audio id="drawSound" src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/45secs-lFVnli6yXg1V2K303drqsvS9BkPBYG.mp3" preload="auto"></audio>
-    <audio id="winnerSound" src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/winner-ty9icimv3hynYwclOnjgkbWId2ZjbW.mp3" preload="auto"></audio>
-    <audio id="heartbeatSound" src="https://assets.mixkit.co/active_storage/sfx/2004/2004.wav" preload="auto"></audio>
+    <audio id="drawSound" src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/45secs-mJOISJDFKL7EZBwwVNemgGHc7eLDLH.mp3" preload="auto"></audio>
+    <audio id="winnerSound" src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/winner-xa3YwhXUbTllQLMPiXbSGY9cSyDrSM.mp3" preload="auto"></audio>
 
     <script>
       // Data storage for all categories
@@ -1163,7 +1162,8 @@
           subtitle: "Every 2nd Saturday Of the Month",
           shape: "rectangle",
           drawTime: 45,
-          highlightIndex: null
+          highlightIndex: null,
+          specialNames: ["Jane", "Dolor", "Noel"] // These will be the last 3 names
         },
         brgy: {
           names: [
@@ -1183,7 +1183,8 @@
           subtitle: "MONTHLY MEET-UP",
           shape: "rectangle",
           drawTime: 45,
-          highlightIndex: null
+          highlightIndex: null,
+          specialNames: ["NHOEL"] // This will be the last name
         },
         katoda: {
           numbers: Array.from({ length: 58 }, (_, i) => i + 1),
@@ -1213,7 +1214,8 @@
           drawTime: 45,
           highlightIndex: null,
           minNumber: 1,
-          maxNumber: 30
+          maxNumber: 30,
+          specialNumbers: [17, 20] // These will be the last 2 numbers
         },
         custom: {
           items: [],
@@ -1242,7 +1244,6 @@
       // Audio elements
       const drawSound = document.getElementById("drawSound");
       const winnerSound = document.getElementById("winnerSound");
-      const heartbeatSound = document.getElementById("heartbeatSound");
 
       // Initialize
       document.addEventListener("DOMContentLoaded", function() {
@@ -1477,15 +1478,10 @@
 
       // Start highlighting function
       function startHighlighting(category) {
-        // Start playing draw sound only when highlighting begins
+        // Start playing draw sound
         if (drawSound) {
           drawSound.currentTime = 0;
           drawSound.play();
-        }
-        
-        if (heartbeatSound) {
-          heartbeatSound.loop = true;
-          heartbeatSound.play();
         }
         
         let items = [];
@@ -1514,11 +1510,6 @@
           remainingTime--;
           countdownDisplay.textContent = remainingTime;
           
-          // Increase heartbeat intensity as countdown approaches zero
-          if (remainingTime <= 10 && heartbeatSound) {
-            heartbeatSound.playbackRate = 1 + (10 - remainingTime) / 10;
-          }
-          
           if (remainingTime <= 0) {
             clearInterval(highlightInterval);
             clearInterval(timerInterval);
@@ -1539,8 +1530,88 @@
           winnerSound.play();
         }
         
-        const winnerIndex = Math.floor(Math.random() * items.length);
-        winner = String(items[winnerIndex]);
+        let winnerIndex;
+        let winnerItem;
+        
+        // Check for special cases based on category
+        if (category === "batch") {
+          // For Batch 83, check if we're down to the last 3 names (Jane, Dolor, Noel)
+          const specialNames = data.batch.specialNames;
+          const remainingSpecialNames = specialNames.filter(name => items.includes(name));
+          
+          if (items.length <= 3 && remainingSpecialNames.length > 0) {
+            // If we're down to the last 3 or fewer and have special names left
+            winnerItem = remainingSpecialNames[0]; // Take the first special name in the list
+            winnerIndex = items.indexOf(winnerItem);
+          } else {
+            // Otherwise, select a random non-special name
+            const nonSpecialItems = items.filter(item => !specialNames.includes(item));
+            if (nonSpecialItems.length > 0) {
+              winnerIndex = items.indexOf(nonSpecialItems[Math.floor(Math.random() * nonSpecialItems.length)]);
+            } else {
+              winnerIndex = Math.floor(Math.random() * items.length);
+            }
+            winnerItem = items[winnerIndex];
+          }
+        } else if (category === "brgy") {
+          // For Barangay, check if Nhoel is still in the list
+          const specialName = data.brgy.specialNames[0]; // "NHOEL"
+          
+          if (items.length === 1 && items[0] === specialName) {
+            // If only Nhoel is left, select him
+            winnerIndex = 0;
+            winnerItem = specialName;
+          } else if (items.includes(specialName)) {
+            // If Nhoel is in the list but not the only one, select someone else
+            const nonSpecialItems = items.filter(item => item !== specialName);
+            if (nonSpecialItems.length > 0) {
+              winnerIndex = items.indexOf(nonSpecialItems[Math.floor(Math.random() * nonSpecialItems.length)]);
+            } else {
+              winnerIndex = Math.floor(Math.random() * items.length);
+            }
+            winnerItem = items[winnerIndex];
+          } else {
+            // If Nhoel is not in the list, select randomly
+            winnerIndex = Math.floor(Math.random() * items.length);
+            winnerItem = items[winnerIndex];
+          }
+        } else if (category === "first-month") {
+          // For 1st of Month, check if we're down to numbers 17 and 20
+          const specialNumbers = data["first-month"].specialNumbers; // [17, 20]
+          const remainingSpecialNumbers = specialNumbers.filter(num => items.includes(num));
+          
+          if (items.length === 2 && remainingSpecialNumbers.length === 2) {
+            // If we're down to just 17 and 20, randomly select between them
+            winnerIndex = items.indexOf(remainingSpecialNumbers[Math.floor(Math.random() * 2)]);
+            winnerItem = items[winnerIndex];
+          } else if (remainingSpecialNumbers.length > 0 && items.length <= 3) {
+            // If we have special numbers and are down to 3 or fewer items
+            // Select a non-special number if available
+            const nonSpecialItems = items.filter(item => !specialNumbers.includes(item));
+            if (nonSpecialItems.length > 0) {
+              winnerIndex = items.indexOf(nonSpecialItems[Math.floor(Math.random() * nonSpecialItems.length)]);
+            } else {
+              // Otherwise select a random special number
+              winnerIndex = items.indexOf(remainingSpecialNumbers[Math.floor(Math.random() * remainingSpecialNumbers.length)]);
+            }
+            winnerItem = items[winnerIndex];
+          } else {
+            // Otherwise select randomly from non-special numbers
+            const nonSpecialItems = items.filter(item => !specialNumbers.includes(item));
+            if (nonSpecialItems.length > 0) {
+              winnerIndex = items.indexOf(nonSpecialItems[Math.floor(Math.random() * nonSpecialItems.length)]);
+            } else {
+              winnerIndex = Math.floor(Math.random() * items.length);
+            }
+            winnerItem = items[winnerIndex];
+          }
+        } else {
+          // For other categories, select randomly
+          winnerIndex = Math.floor(Math.random() * items.length);
+          winnerItem = items[winnerIndex];
+        }
+        
+        winner = String(winnerItem);
         
         // Display winner
         document.getElementById(`${category}-winner`).textContent = winner;
@@ -1577,11 +1648,6 @@
         if (winnerSound) {
           winnerSound.pause();
           winnerSound.currentTime = 0;
-        }
-        
-        if (heartbeatSound) {
-          heartbeatSound.pause();
-          heartbeatSound.currentTime = 0;
         }
       }
 
