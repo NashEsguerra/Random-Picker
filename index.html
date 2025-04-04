@@ -442,7 +442,7 @@
           <h2 class="text-xl font-bold text-center text-gray-800">1st of Month</h2>
           <p class="text-center text-gray-600 mb-4">Draw numbers from 1-30</p>
           <div class="flex justify-center mb-4">
-            <img src="https://img.freepik.com/free-vector/calendar-icon-white-background_1308-84634.jpg?w=826&t=st=1712022400~exp=1712023000~hmac=c0c2b679b4a8f8c0d0b2c9c3d3c3c3c3c3c3c3c3c3c3c3c3c3c3c3c3c3c3" alt="1st of Month icon" class="h-36 w-36 object-contain rounded-lg">
+            <img src="https://img.freepik.com/free-vector/calendar-icon-white-background_1308-84634.jpg?w=826&t=st=1712022400~exp=1712023000~hmac=c0c2b679b4a8f8c0d0b2c9c3d3c3c3c3c3c3c3c3c3c3c3c3c3c3c3c3c3c3c3" alt="1st of Month icon" class="h-36 w-36 object-contain rounded-lg">
           </div>
           <div class="flex justify-center">
             <button class="btn btn-primary" onclick="showPage('first-month-page')">Select</button>
@@ -456,7 +456,7 @@
           <h2 class="text-xl font-bold text-center text-gray-800">Custom Draw</h2>
           <p class="text-center text-gray-600 mb-4">Create your own custom drawing</p>
           <div class="flex justify-center mb-4">
-            <img src="https://img.freepik.com/free-vector/settings-concept-illustration_114360-3754.jpg?w=826&t=st=1712022500~exp=1712023100~hmac=c0c2b679b4a8f8c0d0b2c9c3d3c3c3c3c3c3c3c3c3c3c3c3c3c3c3c3c3c3" alt="Custom Draw icon" class="h-36 w-36 object-contain rounded-lg">
+            <img src="https://img.freepik.com/free-vector/settings-concept-illustration_114360-3754.jpg?w=826&t=st=1712022500~exp=1712023100~hmac=c0c2b679b4a8f8c0d0b2c9c3d3c3c3c3c3c3c3c3c3c3c3c3c3c3c3" alt="Custom Draw icon" class="h-36 w-36 object-contain rounded-lg">
           </div>
           <div class="flex justify-center">
             <button class="btn btn-secondary" onclick="showPage('custom-page')">Create Custom</button>
@@ -1048,10 +1048,10 @@ VICKY</textarea>
 <div id="countdown-display" class="countdown" style="display: none;"></div>
 
 <script>
-  // Audio elements
-  let drumRoll = new Audio("https://free-sound-effects.net/mp3/03/free-sound-1674970809.mp3");
-  let winnerSound = new Audio("https://www.fesliyanstudios.com/play-mp3/6778");
-  let heartbeatSound = new Audio("https://assets.mixkit.co/active_storage/sfx/2004/2004.wav");
+  // Audio elements - bootstrapped directly into the code
+  const drawSound = new Audio("https://hebbkx1anhila5yf.public.blob.vercel-storage.com/45secs-lFVnli6yXg1V2K303drqsvS9BkPBYG.mp3");
+  const winnerSound = new Audio("https://hebbkx1anhila5yf.public.blob.vercel-storage.com/winner-ty9icimv3hynYwclOnjgkbWId2ZjbW.mp3");
+  const heartbeatSound = new Audio("https://assets.mixkit.co/active_storage/sfx/2004/2004.wav");
   
   // Data storage
   const data = {
@@ -1178,6 +1178,11 @@ VICKY</textarea>
     
     // Show selected page
     document.getElementById(pageId).classList.add("active");
+    
+    // Play sound if not going to home page and it's not the first button (batch)
+    if (pageId !== 'home-page' && pageId !== 'batch-page') {
+      drawSound.play();
+    }
   }
   
   function toggleSettings(settingsId) {
@@ -1500,6 +1505,9 @@ VICKY</textarea>
     toggleSettings(`${type}-settings`);
     data[type].winner = "";
     
+    // Play draw sound
+    drawSound.play();
+    
     // Disable draw button
     document.getElementById(`${type}-draw-btn`).disabled = true;
     document.getElementById(`${type}-draw-btn`).classList.add("btn-disabled");
@@ -1570,7 +1578,17 @@ VICKY</textarea>
     heartbeatSound.pause();
     heartbeatSound.currentTime = 0;
     
+    // Play winner sound and set it to loop until user interaction
+    winnerSound.loop = true;
     winnerSound.play();
+    
+    // Add event listener to stop the winner sound when user clicks anywhere
+    document.addEventListener('click', function stopWinnerSound() {
+      winnerSound.pause();
+      winnerSound.currentTime = 0;
+      winnerSound.loop = false;
+      document.removeEventListener('click', stopWinnerSound);
+    });
     
     let items = [];
     if (type === "batch" || type === "brgy") {
@@ -1619,5 +1637,4 @@ VICKY</textarea>
     renderItems(type);
   }
 </script>
-</body>
-</html>
+
