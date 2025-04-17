@@ -3,16 +3,61 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Random Picker App</title>
+  <meta name="description" content="Professional random picker application for various drawing needs">
+  <meta name="theme-color" content="#0f3c57">
+  <meta name="author" content="Professional Web Developer">
+  <meta name="keywords" content="random picker, draw, lottery, raffle, random selection, drawing tool">
+  <meta property="og:title" content="Random Picker Pro">
+  <meta property="og:description" content="Professional random picker application for various drawing needs">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Batch-OVk3xbMW19NoLFkJxZ6O361fGyshja.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <title>Random Picker Pro | Professional Drawing Tool</title>
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/favicon-32x32-Yk9ixbMW19NoLFkJxZ6O361fGyshja.png" sizes="32x32">
+  <link rel="apple-touch-icon" href="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/apple-touch-icon-OVk3xbMW19NoLFkJxZ6O361fGyshja.png">
+  <!-- Preload critical assets -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Preload audio -->
+  <link rel="preload" as="audio" href="data:audio/mp3;base64,SUQzBAAAAAAAI1RTU0UAAAAPAAADTGF2ZjU4Ljc2LjEwMAAAAAAAAAAAAAAA//tQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAWGluZwAAAA8AAAACAAADQADMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzM//////////////////////////////////////////////////////////////////8AAAAATGF2YzU4LjEzAAAAAAAAAAAAAAAAJAYaAAAAAAAAA0CS+zNYAAAAAAAAAAAAAAAAAAAA//sUZAAP8AAAaQAAAAgAAA0gAAABAAABpAAAACAAADSAAAAETEFNRTMuMTAwVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV//sUZB4P8AAAaQAAAAgAAA0gAAABAAABpAAAACAAADSAAAAEVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV//sUZDwP8AAAaQAAAAgAAA0gAAABAAABpAAAACAAADSAAAAEVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV">
   <style>
     /* Custom styles */
+    :root {
+      --primary-color: #0f3c57;
+      --secondary-color: #2a4365;
+      --accent-color: #ed8936;
+      --accent-hover: #dd6b20;
+      --text-light: #ffffff;
+      --text-dark: #1a202c;
+      --text-muted: #a0aec0;
+      --card-bg: rgba(255, 255, 255, 0.95);
+      --success-color: #38a169;
+      --warning-color: #d69e2e;
+      --error-color: #e53e3e;
+      --border-radius: 0.5rem;
+      --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
+      --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+
+    * {
+      box-sizing: border-box;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
     body {
-      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-      background-color: #0f3c57;
-      color: white;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background-color: var(--primary-color);
+      color: var(--text-light);
       margin: 0;
       padding: 0;
       min-height: 100vh;
+      line-height: 1.5;
+      font-size: 16px;
     }
 
     .container {
@@ -42,26 +87,47 @@
     }
 
     .card {
-      background-color: rgba(255, 255, 255, 0.9);
-      border-radius: 0.5rem;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-      transition: all 0.3s ease;
+      background-color: var(--card-bg);
+      border-radius: var(--border-radius);
+      box-shadow: var(--box-shadow);
+      transition: var(--transition);
       overflow: hidden;
+      position: relative;
+      z-index: 1;
+      border: 1px solid rgba(255, 255, 255, 0.1);
     }
 
     .card:hover {
       transform: translateY(-5px);
-      box-shadow: 0 10px 15px rgba(0, 0, 0, 0.2);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 100%);
+      z-index: -1;
     }
 
     .btn {
-      display: inline-block;
-      padding: 0.5rem 1rem;
-      border-radius: 0.375rem;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.625rem 1.25rem;
+      border-radius: var(--border-radius);
       font-weight: 600;
       text-align: center;
       cursor: pointer;
-      transition: all 0.3s ease;
+      transition: var(--transition);
+      border: none;
+      outline: none;
+      position: relative;
+      overflow: hidden;
+      letter-spacing: 0.5px;
     }
 
     .btn-primary {
@@ -105,30 +171,42 @@
       cursor: not-allowed;
     }
 
-    .input {
+    .input,
+    .textarea,
+    .select {
       width: 100%;
-      padding: 0.5rem;
-      border: 1px solid #e2e8f0;
-      border-radius: 0.375rem;
+      padding: 0.75rem 1rem;
+      border: 1px solid rgba(226, 232, 240, 0.3);
+      border-radius: var(--border-radius);
       margin-bottom: 1rem;
+      background-color: rgba(255, 255, 255, 0.95);
+      color: var(--text-dark);
+      font-family: inherit;
+      font-size: 1rem;
+      transition: var(--transition);
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+    }
+
+    .input:focus,
+    .textarea:focus,
+    .select:focus {
+      outline: none;
+      border-color: var(--accent-color);
+      box-shadow: 0 0 0 3px rgba(237, 137, 54, 0.25);
     }
 
     .textarea {
-      width: 100%;
-      padding: 0.5rem;
-      border: 1px solid #e2e8f0;
-      border-radius: 0.375rem;
-      min-height: 100px;
-      margin-bottom: 1rem;
+      min-height: 120px;
+      resize: vertical;
     }
 
     .select {
-      width: 100%;
-      padding: 0.5rem;
-      border: 1px solid #e2e8f0;
-      border-radius: 0.375rem;
-      margin-bottom: 1rem;
-      background-color: white;
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%232d3748' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 0.75rem center;
+      background-size: 1rem;
+      padding-right: 2.5rem;
     }
 
     .modal {
@@ -137,21 +215,38 @@
       left: 0;
       right: 0;
       bottom: 0;
-      background-color: rgba(0, 0, 0, 0.5);
+      background-color: rgba(0, 0, 0, 0.7);
       display: flex;
       align-items: center;
       justify-content: center;
       z-index: 50;
+      backdrop-filter: blur(4px);
+      opacity: 0;
+      animation: fadeIn 0.3s ease forwards;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
     }
 
     .modal-content {
-      background-color: #2d3748;
-      border-radius: 0.5rem;
-      padding: 1.5rem;
-      max-width: 500px;
+      background: linear-gradient(135deg, #2d3748, #1a202c);
+      border-radius: var(--border-radius);
+      padding: 1.75rem;
+      max-width: 550px;
       width: 100%;
       max-height: 90vh;
       overflow-y: auto;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      transform: translateY(20px);
+      animation: slideUp 0.3s ease forwards;
+    }
+
+    @keyframes slideUp {
+      from { transform: translateY(20px); }
+      to { transform: translateY(0); }
     }
 
     .tab {
@@ -203,14 +298,85 @@
     }
 
     .winner-card {
-      background-color: white;
-      color: black;
-      padding: 1.5rem;
-      border-radius: 0.5rem;
-      max-width: 300px;
+      background: linear-gradient(135deg, #ffffff, #f7fafc);
+      color: var(--text-dark);
+      padding: 1.75rem;
+      border-radius: var(--border-radius);
+      max-width: 350px;
       margin: 2rem auto;
       text-align: center;
-      animation: bounce 1s infinite alternate;
+      animation: winnerAppear 0.5s ease-out forwards;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2), 0 0 50px rgba(237, 137, 54, 0.3);
+      border: 2px solid rgba(237, 137, 54, 0.5);
+      position: relative;
+      overflow: hidden;
+      transition: all 0.3s ease;
+    }
+
+    .winner-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3), 0 0 60px rgba(237, 137, 54, 0.4);
+    }
+
+    .winner-card::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(237, 137, 54, 0.2) 0%, rgba(255, 255, 255, 0) 70%);
+      animation: winnerGlow 3s ease-in-out infinite;
+    }
+
+    .winner-card h3 {
+      color: var(--accent-color);
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+
+    .winner-card p {
+      font-size: 2rem !important;
+      font-weight: 700 !important;
+      color: var(--text-dark) !important;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    @keyframes winnerAppear {
+      0% {
+        opacity: 0;
+        transform: scale(0.8) translateY(20px);
+      }
+      70% {
+        transform: scale(1.05) translateY(-10px);
+      }
+      100% {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+      }
+    }
+
+    @keyframes winnerGlow {
+      0%, 100% {
+        opacity: 0.5;
+        transform: translate(0, 0);
+      }
+      50% {
+        opacity: 0.8;
+        transform: translate(-10%, -10%);
+      }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes fadeOut {
+      from { opacity: 1; }
+      to { opacity: 0; }
     }
 
     @keyframes bounce {
@@ -241,9 +407,62 @@
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      font-size: 4rem;
+      font-size: 12rem;
       font-weight: bold;
+      color: white;
+      text-shadow: 0 0 20px rgba(0, 0, 0, 0.5), 0 0 40px rgba(237, 137, 54, 0.7);
       z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(237, 137, 54, 0.3) 0%, rgba(0, 0, 0, 0) 70%);
+      animation: countdownPulse 1s infinite alternate;
+    }
+
+    /* Style for the 30-second countdown timer */
+    #countdown-display {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 8rem;
+      font-weight: bold;
+      color: white;
+      text-shadow: 0 0 20px rgba(0, 0, 0, 0.5), 0 0 40px rgba(237, 137, 54, 0.7);
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(237, 137, 54, 0.3) 0%, rgba(0, 0, 0, 0) 70%);
+      animation: timerPulse 1s infinite alternate;
+    }
+
+    @keyframes countdownPulse {
+      0% {
+        transform: translate(-50%, -50%) scale(1);
+        text-shadow: 0 0 20px rgba(0, 0, 0, 0.5), 0 0 40px rgba(237, 137, 54, 0.7);
+      }
+      100% {
+        transform: translate(-50%, -50%) scale(1.1);
+        text-shadow: 0 0 30px rgba(0, 0, 0, 0.7), 0 0 60px rgba(237, 137, 54, 0.9);
+      }
+    }
+
+    @keyframes timerPulse {
+      0% {
+        transform: translate(-50%, -50%) scale(1);
+        text-shadow: 0 0 20px rgba(0, 0, 0, 0.5), 0 0 40px rgba(54, 137, 237, 0.7);
+      }
+      100% {
+        transform: translate(-50%, -50%) scale(1.05);
+        text-shadow: 0 0 30px rgba(0, 0, 0, 0.7), 0 0 60px rgba(54, 137, 237, 0.9);
+      }
     }
 
     .page {
@@ -306,8 +525,47 @@
     }
 
     .highlight {
-      animation: bounce 0.5s infinite alternate;
-      background-color: white !important;
+      animation: pulse 0.5s infinite alternate;
+      background-color: var(--accent-color) !important;
+      color: white !important;
+      transform: scale(1.05);
+      box-shadow: 0 0 15px rgba(237, 137, 54, 0.7), 0 0 30px rgba(237, 137, 54, 0.4);
+      z-index: 10;
+      position: relative;
+      border: 2px solid white;
+    }
+
+    @keyframes pulse {
+      0% {
+        box-shadow: 0 0 15px rgba(237, 137, 54, 0.7), 0 0 30px rgba(237, 137, 54, 0.4);
+      }
+      100% {
+        box-shadow: 0 0 20px rgba(237, 137, 54, 0.9), 0 0 40px rgba(237, 137, 54, 0.6);
+      }
+    }
+
+    .animate-pulse {
+      animation: textPulse 1.5s infinite;
+    }
+
+    @keyframes textPulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+
+    .confetti {
+      position: fixed;
+      width: 10px;
+      height: 10px;
+      top: -10px;
+      z-index: 1000;
+      animation: fall linear forwards;
+    }
+
+    @keyframes fall {
+      to {
+        transform: translateY(100vh) rotate(720deg);
+      }
     }
 
     .back-btn {
@@ -490,7 +748,7 @@
     }
 
     .justify-between {
-      justify-between: space-between;
+      justify-content: space-between;
     }
 
     .space-y-4 > * + * {
@@ -550,8 +808,13 @@
       <div class="bg-element" style="top: 40%; left: 30%; width: 150px; height: 150px; background-color: #4299e1;"></div>
 
       <div class="container mx-auto py-8">
-        <h1 class="text-4xl font-bold text-center mb-4">Random Picker</h1>
-        <p class="text-xl text-center mb-8">Select a drawing option below to get started</p>
+        <h1 class="text-4xl font-bold text-center mb-4">Random Picker Pro</h1>
+        <p class="text-xl text-center mb-8">Professional Drawing Tool for Raffles & Lotteries</p>
+        <div class="flex justify-center mb-8">
+          <div class="bg-white bg-opacity-10 rounded-lg px-6 py-3 text-white text-center max-w-xl">
+            <p>Select a drawing option below to begin. Each option provides customizable settings and professional drawing animations.</p>
+          </div>
+        </div>
 
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 max-w-6xl mx-auto">
           <!-- Batch Card -->
@@ -639,8 +902,22 @@
           </div>
         </div>
 
-        <footer class="mt-16 text-center text-white opacity-70">
-          <p>© <span id="current-year"></span> Random Picker App. All rights reserved.</p>
+        <footer class="mt-16 text-center text-white opacity-80">
+          <div class="flex flex-col items-center justify-center space-y-2">
+            <div class="flex space-x-4 mb-2">
+              <a href="#" class="text-white hover:text-gray-300 transition-colors duration-200">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
+              </a>
+              <a href="#" class="text-white hover:text-gray-300 transition-colors duration-200">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+              </a>
+              <a href="#" class="text-white hover:text-gray-300 transition-colors duration-200">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path></svg>
+              </a>
+            </div>
+            <p>© <span id="current-year"></span> Random Picker Pro. All rights reserved.</p>
+            <p class="text-sm">Version 2.0 | Professional Edition</p>
+          </div>
         </footer>
       </div>
     </div>
@@ -978,7 +1255,7 @@
 
       <div class="container mx-auto pt-16">
         <h1 id="first-month-title" class="text-3xl font-bold mb-2 text-center">1ST OF THE MONTH</h1>
-        <h2 id="first-month-subtitle" class="text-xl mb-8 text-center">NUMBERS 1-30</h2>
+        <h2 id="first-month-subtitle" class="text-xl mb-8 text-center">NUMBERS 1-30 WITH NAMES</h2>
 
         <!-- Items Grid -->
         <div id="first-month-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 mb-8">
@@ -1014,11 +1291,11 @@
 
             <div>
               <label class="block mb-2">Edit Subtitle:</label>
-              <input id="first-month-subtitle-input" type="text" class="input" value="NUMBERS 1-30">
+              <input id="first-month-subtitle-input" type="text" class="input" value="NUMBERS 1-30 WITH NAMES">
             </div>
 
             <div>
-              <label class="block mb-2">Number Range:</label>
+              <label class="block mb-2">Number Range with Names:</label>
               <div class="flex gap-4">
                 <div>
                   <label class="block text-sm">Min</label>
@@ -1029,8 +1306,9 @@
                   <input id="first-month-max" type="number" min="2" class="input" value="30">
                 </div>
               </div>
+              <p class="text-sm mt-2 mb-2">Numbers will be generated with the corresponding names (1. KAP MEAN, 2. CAITLINS, etc.)</p>
               <button class="btn btn-primary w-full" onclick="generateNumbers('first-month')">
-                Generate Numbers
+                Generate Numbers with Names
               </button>
             </div>
 
@@ -1138,7 +1416,7 @@
       const data = {
         batch: {
           names: [
-            "Willy",
+            "Prince",
             "Lito",
             "George",
             "Jess",
@@ -1171,7 +1449,6 @@
             "NESTOR",
             "ALDRIN",
             "K. ADING",
-            "K. REY",
             "K. JL",
             "RUBEN",
             "KAP B.",
@@ -1206,9 +1483,29 @@
           maxNumber: 25
         },
         "first-month": {
-          numbers: Array.from({ length: 30 }, (_, i) => i + 1),
+          numbers: [
+            "1. KAP MEAN",
+            "3. JENNY",
+            "4. JERIC",
+            "6. WAWENG",
+            "8. MARY ANN",
+            "9. AYESA",
+            "11. SHAINE",
+            "12. MARITES",
+            "13. NANCY",
+            "14. RAVEZ",
+            "15. ARLETH",
+            "17. GERRY",
+            "20. MARILYN_C",
+            "21. CARLA/ED",
+            "22. MARILYN",
+            "24. LORDAINE",
+            "25. LORENZ",
+            "26. RAIZIEL",
+            "30. AMELITA"
+          ],
           title: "1ST OF THE MONTH",
-          subtitle: "NUMBERS 1-30",
+          subtitle: "NUMBERS 1-30 WITH NAMES",
           shape: "rounded",
           drawTime: 30,
           highlightIndex: null,
@@ -1248,7 +1545,7 @@
       document.addEventListener("DOMContentLoaded", function() {
         // Set current year in footer
         document.getElementById("current-year").textContent = new Date().getFullYear().toString();
-        
+
         // Initialize all pages
         initializePages();
       });
@@ -1260,28 +1557,28 @@
         document.getElementById("batch-names-input").value = data.batch.names.join("\n");
         document.getElementById("batch-shape").value = data.batch.shape;
         document.getElementById("batch-draw-time").value = data.batch.drawTime;
-        
+
         // Initialize brgy page
         renderItems("brgy");
         document.getElementById("brgy-names-input").value = data.brgy.names.join("\n");
         document.getElementById("brgy-shape").value = data.brgy.shape;
         document.getElementById("brgy-draw-time").value = data.brgy.drawTime;
-        
+
         // Initialize katoda page
         renderItems("katoda");
         document.getElementById("katoda-shape").value = data.katoda.shape;
         document.getElementById("katoda-draw-time").value = data.katoda.drawTime;
-        
+
         // Initialize knights page
         renderItems("knights");
         document.getElementById("knights-shape").value = data.knights.shape;
         document.getElementById("knights-draw-time").value = data.knights.drawTime;
-        
+
         // Initialize first-month page
         renderItems("first-month");
         document.getElementById("first-month-shape").value = data["first-month"].shape;
         document.getElementById("first-month-draw-time").value = data["first-month"].drawTime;
-        
+
         // Initialize custom page
         document.getElementById("custom-shape").value = data.custom.shape;
         document.getElementById("custom-draw-time").value = data.custom.drawTime;
@@ -1294,28 +1591,28 @@
         pages.forEach(page => {
           page.classList.remove("active");
         });
-        
+
         // Show selected page
         document.getElementById(pageId).classList.add("active");
-        
+
         // Update current page and category
         currentPage = pageId;
-        
+
         // Reset state
         isDrawing = false;
         winner = null;
-        
+
         // Hide winner display
         if (currentCategory) {
           document.getElementById(`${currentCategory}-winner-display`).style.display = "none";
         }
-        
+
         // Hide countdown
         document.getElementById("countdown-display").style.display = "none";
-        
+
         // Stop all sounds
         stopAllSounds();
-        
+
         // Set current category based on page
         if (pageId === "batch-page") currentCategory = "batch";
         else if (pageId === "brgy-page") currentCategory = "brgy";
@@ -1324,7 +1621,7 @@
         else if (pageId === "first-month-page") currentCategory = "first-month";
         else if (pageId === "custom-page") currentCategory = "custom";
         else currentCategory = null;
-        
+
         // Show settings button if on a category page
         if (currentCategory) {
           document.getElementById(`${currentCategory}-settings-btn`).style.display = "block";
@@ -1335,16 +1632,16 @@
       function toggleSettings(category) {
         // Only allow toggling settings when not drawing
         if (isDrawing) return;
-        
+
         const settingsModal = document.getElementById(`${category}-settings`);
         if (settingsModal.style.display === "none" || settingsModal.style.display === "") {
           settingsModal.style.display = "flex";
         } else {
           settingsModal.style.display = "none";
-          
+
           // Update data from settings
           updateDataFromSettings(category);
-          
+
           // Re-render items
           renderItems(category);
         }
@@ -1355,31 +1652,31 @@
         // Update title and subtitle
         data[category].title = document.getElementById(`${category}-title-input`).value;
         data[category].subtitle = document.getElementById(`${category}-subtitle-input`).value;
-        
+
         // Update shape
         data[category].shape = document.getElementById(`${category}-shape`).value;
-        
+
         // Update draw time
         data[category].drawTime = parseInt(document.getElementById(`${category}-draw-time`).value) || 45;
-        
+
         // Update names for batch and brgy
         if (category === "batch" || category === "brgy") {
           const namesInput = document.getElementById(`${category}-names-input`).value;
           data[category].names = namesInput.split("\n").map(name => name.trim()).filter(name => name !== "");
         }
-        
+
         // Update items for custom
         if (category === "custom") {
           const itemsInput = document.getElementById(`${category}-items-input`).value;
           data[category].items = itemsInput.split("\n").map(item => item.trim()).filter(item => item !== "");
         }
-        
+
         // Update min/max for number categories
         if (category === "katoda" || category === "knights" || category === "first-month") {
           data[category].minNumber = parseInt(document.getElementById(`${category}-min`).value) || 1;
           data[category].maxNumber = parseInt(document.getElementById(`${category}-max`).value) || 45;
         }
-        
+
         // Update UI
         document.getElementById(`${category}-title`).textContent = data[category].title;
         document.getElementById(`${category}-subtitle`).textContent = data[category].subtitle;
@@ -1389,7 +1686,23 @@
       function generateNumbers(category) {
         const min = data[category].minNumber;
         const max = data[category].maxNumber;
-        data[category].numbers = Array.from({ length: max - min + 1 }, (_, i) => i + min);
+
+        if (category === "first-month") {
+          // For first-month, we need to generate numbers with names
+          const names = [
+            "KAP MEAN", "CAITLINS", "JENNY", "JERIC", "NHOEL",
+            "WAWENG", "KA BURO", "MARY ANN", "AYESA", "EDEN",
+            "SHAINE", "MARITES", "NANCY", "RAVEZ", "ARLETH",
+            "DOREEN", "GERRY", "JOANA_1", "JOANA_2", "MARILYN_C",
+            "CARLA/ED", "MARILYN", "CONSU", "LORDAINE", "LORENZ",
+            "RAIZIEL", "VERIN5", "ORLENE", "PRECY", "AMELITA"
+          ];
+          data[category].numbers = Array.from({ length: max - min + 1 }, (_, i) => `${i + min}. ${names[i]}`);
+        } else {
+          // For other categories, just generate numbers
+          data[category].numbers = Array.from({ length: max - min + 1 }, (_, i) => i + min);
+        }
+
         renderItems(category);
       }
 
@@ -1397,7 +1710,7 @@
       function renderItems(category) {
         const grid = document.getElementById(`${category}-grid`);
         grid.innerHTML = "";
-        
+
         let items = [];
         if (category === "batch" || category === "brgy") {
           items = data[category].names;
@@ -1406,7 +1719,7 @@
         } else if (category === "custom") {
           items = data[category].items;
         }
-        
+
         items.forEach((item, index) => {
           // Apply shape styles
           let shapeClass = "";
@@ -1417,14 +1730,14 @@
           } else {
             shapeClass = "rounded";
           }
-          
+
           const isHighlighted = data[category].highlightIndex === index;
-          
+
           const itemElement = document.createElement("div");
           itemElement.className = `item ${shapeClass} ${isHighlighted ? "highlight" : ""}`;
           itemElement.setAttribute("data-index", index);
           itemElement.textContent = item;
-          
+
           grid.appendChild(itemElement);
         });
       }
@@ -1439,38 +1752,101 @@
         } else if (category === "custom") {
           items = data[category].items;
         }
-        
+
         if (items.length === 0) {
-          alert("No items to draw");
+          // Use a more professional alert with animation
+          const alertBox = document.createElement('div');
+          alertBox.style.position = 'fixed';
+          alertBox.style.top = '50%';
+          alertBox.style.left = '50%';
+          alertBox.style.transform = 'translate(-50%, -50%)';
+          alertBox.style.background = 'linear-gradient(135deg, #e53e3e, #c53030)';
+          alertBox.style.color = 'white';
+          alertBox.style.padding = '20px 30px';
+          alertBox.style.borderRadius = '8px';
+          alertBox.style.boxShadow = '0 10px 25px rgba(0, 0, 0, 0.2)';
+          alertBox.style.zIndex = '1000';
+          alertBox.style.textAlign = 'center';
+          alertBox.style.animation = 'fadeIn 0.3s ease-out';
+          alertBox.style.fontWeight = 'bold';
+          alertBox.innerHTML = '<div style="font-size: 24px; margin-bottom: 10px;">⚠️</div><div>No items available to draw</div>';
+          document.body.appendChild(alertBox);
+
+          setTimeout(() => {
+            alertBox.style.animation = 'fadeOut 0.3s ease-out';
+            alertBox.style.opacity = '0';
+            setTimeout(() => document.body.removeChild(alertBox), 300);
+          }, 2000);
           return;
         }
-        
+
         isDrawing = true;
         winner = null;
-        
-        // Hide settings button during drawing
-        document.getElementById(`${category}-settings-btn`).style.display = "none";
-        
+
+        // Change draw button appearance
+        const drawBtn = document.getElementById(`${category}-draw-btn`);
+        drawBtn.innerHTML = '<span class="animate-pulse">Drawing...</span>';
+        drawBtn.disabled = true;
+
+        // Hide settings button during drawing with animation
+        const settingsBtn = document.getElementById(`${category}-settings-btn`);
+        settingsBtn.style.transition = 'opacity 0.3s ease';
+        settingsBtn.style.opacity = '0';
+        setTimeout(() => {
+          settingsBtn.style.display = "none";
+        }, 300);
+
         // Hide settings during drawing
         document.getElementById(`${category}-settings`).style.display = "none";
-        
-        // Hide winner display
-        document.getElementById(`${category}-winner-display`).style.display = "none";
-        
-        // Start countdown
+
+        // Hide winner display with animation if visible
+        const winnerDisplay = document.getElementById(`${category}-winner-display`);
+        if (winnerDisplay.style.display !== 'none') {
+          winnerDisplay.style.transition = 'all 0.3s ease';
+          winnerDisplay.style.opacity = '0';
+          winnerDisplay.style.transform = 'scale(0.8)';
+          setTimeout(() => {
+            winnerDisplay.style.display = "none";
+          }, 300);
+        }
+
+        // Create and add a stylish countdown display if it doesn't exist
+        let countdownDisplay = document.getElementById("countdown-display");
+        if (!countdownDisplay) {
+          countdownDisplay = document.createElement('div');
+          countdownDisplay.id = "countdown-display";
+          countdownDisplay.className = "countdown";
+          document.body.appendChild(countdownDisplay);
+        }
+
+        // Start countdown with animation
         let count = 3;
-        const countdownDisplay = document.getElementById("countdown-display");
         countdownDisplay.textContent = count;
         countdownDisplay.style.display = "block";
-        
+        countdownDisplay.style.animation = 'pulse 0.5s infinite alternate';
+
+        // Play countdown sound
+        const countdownSound = new Audio('data:audio/mp3;base64,SUQzBAAAAAAAI1RTU0UAAAAPAAADTGF2ZjU4Ljc2LjEwMAAAAAAAAAAAAAAA//tQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAWGluZwAAAA8AAAACAAADQADMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzM//////////////////////////////////////////////////////////////////8AAAAATGF2YzU4LjEzAAAAAAAAAAAAAAAAJAYaAAAAAAAAA0CS+zNYAAAAAAAAAAAAAAAAAAAA//sUZAAP8AAAaQAAAAgAAA0gAAABAAABpAAAACAAADSAAAAETEFNRTMuMTAwVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV//sUZB4P8AAAaQAAAAgAAA0gAAABAAABpAAAACAAADSAAAAEVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV//sUZDwP8AAAaQAAAAgAAA0gAAABAAABpAAAACAAADSAAAAEVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV');
+        countdownSound.play().catch(e => console.log('Audio play failed:', e));
+
         countdownInterval = setInterval(() => {
           count--;
           countdownDisplay.textContent = count;
-          
+          countdownSound.currentTime = 0;
+          countdownSound.play().catch(e => console.log('Audio play failed:', e));
+
+          // Add visual effect on count change
+          countdownDisplay.style.animation = 'none';
+          countdownDisplay.offsetHeight; // Trigger reflow
+          countdownDisplay.style.animation = 'pulse 0.5s infinite alternate';
+
           if (count <= 0) {
             clearInterval(countdownInterval);
-            countdownDisplay.style.display = "none";
-            startHighlighting(category);
+            countdownDisplay.style.animation = 'fadeOut 0.5s forwards';
+            setTimeout(() => {
+              countdownDisplay.style.display = "none";
+              startHighlighting(category);
+            }, 500);
           }
         }, 1000);
       }
@@ -1482,7 +1858,7 @@
           drawSound.currentTime = 0;
           drawSound.play();
         }
-        
+
         let items = [];
         if (category === "batch" || category === "brgy") {
           items = data[category].names;
@@ -1491,29 +1867,63 @@
         } else if (category === "custom") {
           items = data[category].items;
         }
-        
+
         let remainingTime = data[category].drawTime;
         const countdownDisplay = document.getElementById("countdown-display");
+
+        // Make sure the countdown display is properly styled
+        countdownDisplay.className = ""; // Remove any existing classes
+        countdownDisplay.style.position = "fixed";
+        countdownDisplay.style.top = "50%";
+        countdownDisplay.style.left = "50%";
+        countdownDisplay.style.transform = "translate(-50%, -50%)";
+        countdownDisplay.style.fontSize = "8rem";
+        countdownDisplay.style.fontWeight = "bold";
+        countdownDisplay.style.color = "white";
+        countdownDisplay.style.textShadow = "0 0 20px rgba(0, 0, 0, 0.5), 0 0 40px rgba(54, 137, 237, 0.7)";
+        countdownDisplay.style.zIndex = "100";
+        countdownDisplay.style.display = "flex";
+        countdownDisplay.style.alignItems = "center";
+        countdownDisplay.style.justifyContent = "center";
+        countdownDisplay.style.width = "150px";
+        countdownDisplay.style.height = "150px";
+        countdownDisplay.style.borderRadius = "50%";
+        countdownDisplay.style.background = "radial-gradient(circle, rgba(54, 137, 237, 0.3) 0%, rgba(0, 0, 0, 0) 70%)";
+        countdownDisplay.style.animation = "timerPulse 1s infinite alternate";
+
         countdownDisplay.textContent = remainingTime;
         countdownDisplay.style.display = "block";
-        
+
         // Start highlighting items randomly
         highlightInterval = setInterval(() => {
           const randomIndex = Math.floor(Math.random() * items.length);
           data[category].highlightIndex = randomIndex;
           renderItems(category);
         }, 150);
-        
+
         // Start countdown timer
         timerInterval = setInterval(() => {
           remainingTime--;
           countdownDisplay.textContent = remainingTime;
-          
+
+          // Add visual effect on count change
+          countdownDisplay.style.animation = "none";
+          countdownDisplay.offsetHeight; // Trigger reflow
+          countdownDisplay.style.animation = "timerPulse 1s infinite alternate";
+
+          // Play tick sound for each second
+          const tickSound = new Audio('data:audio/mp3;base64,SUQzBAAAAAAAI1RTU0UAAAAPAAADTGF2ZjU4Ljc2LjEwMAAAAAAAAAAAAAAA//tQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAWGluZwAAAA8AAAACAAADQADMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzM//////////////////////////////////////////////////////////////////8AAAAATGF2YzU4LjEzAAAAAAAAAAAAAAAAJAYaAAAAAAAAA0CS+zNYAAAAAAAAAAAAAAAAAAAA//sUZAAP8AAAaQAAAAgAAA0gAAABAAABpAAAACAAADSAAAAETEFNRTMuMTAwVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV//sUZB4P8AAAaQAAAAgAAA0gAAABAAABpAAAACAAADSAAAAEVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV//sUZDwP8AAAaQAAAAgAAA0gAAABAAABpAAAACAAADSAAAAEVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV');
+          tickSound.volume = 0.3; // Lower volume for the tick
+          tickSound.play().catch(e => console.log('Audio play failed:', e));
+
           if (remainingTime <= 0) {
             clearInterval(highlightInterval);
             clearInterval(timerInterval);
-            countdownDisplay.style.display = "none";
-            selectWinner(category, items);
+            countdownDisplay.style.animation = "fadeOut 0.5s forwards";
+            setTimeout(() => {
+              countdownDisplay.style.display = "none";
+              selectWinner(category, items);
+            }, 500);
           }
         }, 1000);
       }
@@ -1522,119 +1932,163 @@
       function selectWinner(category, items) {
         // Stop all sounds
         stopAllSounds();
-        
-        // Play winner sound
-        if (winnerSound) {
-          winnerSound.currentTime = 0;
-          winnerSound.play();
-        }
-        
-        let winnerIndex;
-        let winnerItem;
-        
-        // Check for special cases based on category
-        if (category === "batch") {
-          // For Batch 83, check if we're down to the last 3 names (Jane, Dolor, Noel)
-          const specialNames = data.batch.specialNames;
-          const remainingSpecialNames = specialNames.filter(name => items.includes(name));
-          
-          if (items.length <= 3 && remainingSpecialNames.length > 0) {
-            // If we're down to the last 3 or fewer and have special names left
-            winnerItem = remainingSpecialNames[0]; // Take the first special name in the list
-            winnerIndex = items.indexOf(winnerItem);
-          } else {
-            // Otherwise, select a random non-special name
-            const nonSpecialItems = items.filter(item => !specialNames.includes(item));
-            if (nonSpecialItems.length > 0) {
-              winnerIndex = items.indexOf(nonSpecialItems[Math.floor(Math.random() * nonSpecialItems.length)]);
+
+        // Create a dramatic pause before revealing winner
+        const grid = document.getElementById(`${category}-grid`);
+        grid.style.transition = 'all 0.5s ease';
+        grid.style.filter = 'blur(3px)';
+        grid.style.opacity = '0.7';
+
+        // Restore draw button
+        const drawBtn = document.getElementById(`${category}-draw-btn`);
+        drawBtn.disabled = false;
+        drawBtn.innerHTML = 'Draw';
+
+        // Dramatic pause with drumroll sound
+        const drumrollSound = new Audio('data:audio/mp3;base64,SUQzBAAAAAAAI1RTU0UAAAAPAAADTGF2ZjU4Ljc2LjEwMAAAAAAAAAAAAAAA//tQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAWGluZwAAAA8AAAACAAADQADMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzM//////////////////////////////////////////////////////////////////8AAAAATGF2YzU4LjEzAAAAAAAAAAAAAAAAJAYaAAAAAAAAA0CS+zNYAAAAAAAAAAAAAAAAAAAA//sUZAAP8AAAaQAAAAgAAA0gAAABAAABpAAAACAAADSAAAAETEFNRTMuMTAwVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV//sUZB4P8AAAaQAAAAgAAA0gAAABAAABpAAAACAAADSAAAAEVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV//sUZDwP8AAAaQAAAAgAAA0gAAABAAABpAAAACAAADSAAAAEVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV');
+        drumrollSound.play().catch(e => console.log('Audio play failed:', e));
+
+        setTimeout(() => {
+          let winnerIndex;
+          let winnerItem;
+
+          // Check for special cases based on category
+          if (category === "batch") {
+            // For Batch 83, check if we're down to the last 3 names (Jane, Dolor, Noel)
+            const specialNames = data.batch.specialNames;
+            const remainingSpecialNames = specialNames.filter(name => items.includes(name));
+
+            if (items.length <= 3 && remainingSpecialNames.length > 0) {
+              // If we're down to the last 3 or fewer and have special names left
+              winnerItem = remainingSpecialNames[0]; // Take the first special name in the list
+              winnerIndex = items.indexOf(winnerItem);
             } else {
-              winnerIndex = Math.floor(Math.random() * items.length);
+              // Otherwise, select a random non-special name
+              const nonSpecialItems = items.filter(item => !specialNames.includes(item));
+              if (nonSpecialItems.length > 0) {
+                winnerIndex = items.indexOf(nonSpecialItems[Math.floor(Math.random() * nonSpecialItems.length)]);
+              } else {
+                winnerIndex = Math.floor(Math.random() * items.length);
+              }
+              winnerItem = items[winnerIndex];
             }
-            winnerItem = items[winnerIndex];
-          }
-        } else if (category === "brgy") {
-          // For Barangay, check if Nhoel is still in the list
-          const specialName = data.brgy.specialNames[0]; // "NHOEL"
-          
-          if (items.length === 1 && items[0] === specialName) {
-            // If only Nhoel is left, select him
-            winnerIndex = 0;
-            winnerItem = specialName;
-          } else if (items.includes(specialName)) {
-            // If Nhoel is in the list but not the only one, select someone else
-            const nonSpecialItems = items.filter(item => item !== specialName);
-            if (nonSpecialItems.length > 0) {
-              winnerIndex = items.indexOf(nonSpecialItems[Math.floor(Math.random() * nonSpecialItems.length)]);
+          } else if (category === "brgy") {
+            // For Barangay, check if Nhoel is still in the list
+            const specialName = data.brgy.specialNames[0]; // "NHOEL"
+
+            if (items.length === 1 && items[0] === specialName) {
+              // If only Nhoel is left, select him
+              winnerIndex = 0;
+              winnerItem = specialName;
+            } else if (items.includes(specialName)) {
+              // If Nhoel is in the list but not the only one, select someone else
+              const nonSpecialItems = items.filter(item => item !== specialName);
+              if (nonSpecialItems.length > 0) {
+                winnerIndex = items.indexOf(nonSpecialItems[Math.floor(Math.random() * nonSpecialItems.length)]);
+              } else {
+                winnerIndex = Math.floor(Math.random() * items.length);
+              }
+              winnerItem = items[winnerIndex];
             } else {
+              // If Nhoel is not in the list, select randomly
               winnerIndex = Math.floor(Math.random() * items.length);
+              winnerItem = items[winnerIndex];
             }
-            winnerItem = items[winnerIndex];
+          } else if (category === "first-month") {
+            // For 1st of Month, check if we're down to numbers 17 and 20
+            const specialNumbers = data["first-month"].specialNumbers; // [17, 20]
+            const remainingSpecialNumbers = specialNumbers.filter(num => items.includes(num));
+
+            if (items.length === 2 && remainingSpecialNumbers.length === 2) {
+              // If we're down to just 17 and 20, randomly select between them
+              winnerIndex = items.indexOf(remainingSpecialNumbers[Math.floor(Math.random() * 2)]);
+              winnerItem = items[winnerIndex];
+            } else if (remainingSpecialNumbers.length > 0 && items.length <= 3) {
+              // If we have special numbers and are down to 3 or fewer items
+              // Select a non-special number if available
+              const nonSpecialItems = items.filter(item => !specialNumbers.includes(item));
+              if (nonSpecialItems.length > 0) {
+                winnerIndex = items.indexOf(nonSpecialItems[Math.floor(Math.random() * nonSpecialItems.length)]);
+              } else {
+                // Otherwise select a random special number
+                winnerIndex = items.indexOf(remainingSpecialNumbers[Math.floor(Math.random() * remainingSpecialNumbers.length)]);
+              }
+              winnerItem = items[winnerIndex];
+            } else {
+              // Otherwise select randomly from non-special numbers
+              const nonSpecialItems = items.filter(item => !specialNumbers.includes(item));
+              if (nonSpecialItems.length > 0) {
+                winnerIndex = items.indexOf(nonSpecialItems[Math.floor(Math.random() * nonSpecialItems.length)]);
+              } else {
+                winnerIndex = Math.floor(Math.random() * items.length);
+              }
+              winnerItem = items[winnerIndex];
+            }
           } else {
-            // If Nhoel is not in the list, select randomly
+            // For other categories, select randomly
             winnerIndex = Math.floor(Math.random() * items.length);
             winnerItem = items[winnerIndex];
           }
-        } else if (category === "first-month") {
-          // For 1st of Month, check if we're down to numbers 17 and 20
-          const specialNumbers = data["first-month"].specialNumbers; // [17, 20]
-          const remainingSpecialNumbers = specialNumbers.filter(num => items.includes(num));
-          
-          if (items.length === 2 && remainingSpecialNumbers.length === 2) {
-            // If we're down to just 17 and 20, randomly select between them
-            winnerIndex = items.indexOf(remainingSpecialNumbers[Math.floor(Math.random() * 2)]);
-            winnerItem = items[winnerIndex];
-          } else if (remainingSpecialNumbers.length > 0 && items.length <= 3) {
-            // If we have special numbers and are down to 3 or fewer items
-            // Select a non-special number if available
-            const nonSpecialItems = items.filter(item => !specialNumbers.includes(item));
-            if (nonSpecialItems.length > 0) {
-              winnerIndex = items.indexOf(nonSpecialItems[Math.floor(Math.random() * nonSpecialItems.length)]);
-            } else {
-              // Otherwise select a random special number
-              winnerIndex = items.indexOf(remainingSpecialNumbers[Math.floor(Math.random() * remainingSpecialNumbers.length)]);
-            }
-            winnerItem = items[winnerIndex];
-          } else {
-            // Otherwise select randomly from non-special numbers
-            const nonSpecialItems = items.filter(item => !specialNumbers.includes(item));
-            if (nonSpecialItems.length > 0) {
-              winnerIndex = items.indexOf(nonSpecialItems[Math.floor(Math.random() * nonSpecialItems.length)]);
-            } else {
-              winnerIndex = Math.floor(Math.random() * items.length);
-            }
-            winnerItem = items[winnerIndex];
+
+          winner = String(winnerItem);
+
+          // Play winner sound with fanfare
+          const winnerSound = new Audio('data:audio/mp3;base64,SUQzBAAAAAAAI1RTU0UAAAAPAAADTGF2ZjU4Ljc2LjEwMAAAAAAAAAAAAAAA//tQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAWGluZwAAAA8AAAACAAAGpQC2tra2tra2tra2tra2tra2tra2tra2tra2tra2tra2tra2tra2tra2tra2tra2tra2//////////////////////////////////////////////////////////////////8AAAAATGF2YzU4LjEzAAAAAAAAAAAAAAAAJAQqAAAAAAAABqUyEU9VAAAAAAAAAAAAAAAAAAAA//sUZAAP8AAAaQAAAAgAAA0gAAABAAABpAAAACAAADSAAAAETEFNRTMuMTAwVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV//sUZB4P8AAAaQAAAAgAAA0gAAABAAABpAAAACAAADSAAAAEVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV//sUZDwP8AAAaQAAAAgAAA0gAAABAAABpAAAACAAADSAAAAEVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV');
+          winnerSound.play().catch(e => console.log('Audio play failed:', e));
+
+          // Restore grid appearance
+          grid.style.filter = 'none';
+          grid.style.opacity = '1';
+
+          // Display winner with animation
+          const winnerElement = document.getElementById(`${category}-winner`);
+          const winnerDisplay = document.getElementById(`${category}-winner-display`);
+
+          winnerElement.textContent = winner;
+          winnerDisplay.style.opacity = '0';
+          winnerDisplay.style.transform = 'scale(0.8)';
+          winnerDisplay.style.display = "block";
+
+          // Animate winner appearance
+          setTimeout(() => {
+            winnerDisplay.style.transition = 'all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
+            winnerDisplay.style.opacity = '1';
+            winnerDisplay.style.transform = 'scale(1)';
+          }, 100);
+
+          isDrawing = false;
+
+          // Show settings button again with animation
+          const settingsBtn = document.getElementById(`${category}-settings-btn`);
+          settingsBtn.style.display = "block";
+          setTimeout(() => {
+            settingsBtn.style.transition = 'opacity 0.3s ease';
+            settingsBtn.style.opacity = '1';
+          }, 100);
+
+          // Trigger enhanced confetti
+          triggerConfetti();
+
+          // Remove winner from the list
+          if (category === "batch" || category === "brgy") {
+            data[category].names.splice(winnerIndex, 1);
+          } else if (category === "katoda" || category === "knights" || category === "first-month") {
+            data[category].numbers.splice(winnerIndex, 1);
+          } else if (category === "custom") {
+            data[category].items.splice(winnerIndex, 1);
           }
-        } else {
-          // For other categories, select randomly
-          winnerIndex = Math.floor(Math.random() * items.length);
-          winnerItem = items[winnerIndex];
-        }
-        
-        winner = String(winnerItem);
-        
-        // Display winner
-        document.getElementById(`${category}-winner`).textContent = winner;
-        document.getElementById(`${category}-winner-display`).style.display = "block";
-        
-        isDrawing = false;
-        
-        // Show settings button again
-        document.getElementById(`${category}-settings-btn`).style.display = "block";
-        
-        // Trigger confetti
-        triggerConfetti();
-        
-        // Remove winner from the list
-        if (category === "batch" || category === "brgy") {
-          data[category].names.splice(winnerIndex, 1);
-        } else if (category === "katoda" || category === "knights" || category === "first-month") {
-          data[category].numbers.splice(winnerIndex, 1);
-        } else if (category === "custom") {
-          data[category].items.splice(winnerIndex, 1);
-        }
-        
-        // Re-render items
-        renderItems(category);
+
+          // Re-render items with animation
+          setTimeout(() => {
+            renderItems(category);
+
+            // Add subtle animation to all items
+            const newItems = document.querySelectorAll(`#${category}-grid .item`);
+            newItems.forEach(item => {
+              item.style.animation = 'fadeIn 0.5s ease-out';
+            });
+          }, 500);
+        }, 1500); // Dramatic pause duration
       }
 
       // Stop all sounds
@@ -1643,36 +2097,80 @@
           drawSound.pause();
           drawSound.currentTime = 0;
         }
-        
+
         if (winnerSound) {
           winnerSound.pause();
           winnerSound.currentTime = 0;
         }
       }
 
-      // Trigger confetti
+      // Trigger confetti with enhanced effects
       function triggerConfetti() {
-        const duration = 3 * 1000;
+        const duration = 5 * 1000; // Longer duration for more celebration
         const end = Date.now() + duration;
-        
+        const colors = ['#ff0000', '#00ff00', '#0000ff', '#ffff00', '#ff00ff', '#00ffff', '#ffa500', '#ff69b4'];
+
+        // Play celebration sound
+        const celebrationSound = new Audio('data:audio/mp3;base64,SUQzBAAAAAAAI1RTU0UAAAAPAAADTGF2ZjU4Ljc2LjEwMAAAAAAAAAAAAAAA//tQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAWGluZwAAAA8AAAACAAAGpQC2tra2tra2tra2tra2tra2tra2tra2tra2tra2tra2tra2tra2tra2tra2tra2tra2//////////////////////////////////////////////////////////////////8AAAAATGF2YzU4LjEzAAAAAAAAAAAAAAAAJAQqAAAAAAAABqUyEU9VAAAAAAAAAAAAAAAAAAAA//sUZAAP8AAAaQAAAAgAAA0gAAABAAABpAAAACAAADSAAAAETEFNRTMuMTAwVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV//sUZB4P8AAAaQAAAAgAAA0gAAABAAABpAAAACAAADSAAAAEVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV//sUZDwP8AAAaQAAAAgAAA0gAAABAAABpAAAACAAADSAAAAEVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV');
+        celebrationSound.play().catch(e => console.log('Audio play failed:', e));
+
+        // Create a more dynamic confetti animation
         (function frame() {
-          // Launch confetti from the sides
+          // Launch confetti from the sides with varying intensity
+          const intensity = Math.sin((Date.now() - (end - duration)) / duration * Math.PI) * 0.5 + 0.5;
+
+          // Left side burst
           confetti({
-            particleCount: 2,
+            particleCount: Math.floor(5 * intensity) + 2,
             angle: 60,
-            spread: 55,
-            origin: { x: 0, y: 0.6 }
+            spread: 55 + (intensity * 20),
+            origin: { x: 0, y: 0.6 },
+            colors: colors,
+            shapes: ['square', 'circle'],
+            gravity: 1.2 - (intensity * 0.4),
+            drift: intensity * 2,
+            ticks: 300
           });
-          
+
+          // Right side burst
           confetti({
-            particleCount: 2,
+            particleCount: Math.floor(5 * intensity) + 2,
             angle: 120,
-            spread: 55,
-            origin: { x: 1, y: 0.6 }
+            spread: 55 + (intensity * 20),
+            origin: { x: 1, y: 0.6 },
+            colors: colors,
+            shapes: ['square', 'circle'],
+            gravity: 1.2 - (intensity * 0.4),
+            drift: -intensity * 2,
+            ticks: 300
           });
-          
+
+          // Top center burst (occasional)
+          if (Math.random() < 0.3) {
+            confetti({
+              particleCount: Math.floor(10 * intensity),
+              angle: 90,
+              spread: 90,
+              origin: { x: 0.5, y: 0 },
+              colors: colors,
+              shapes: ['star', 'circle'],
+              gravity: 1,
+              ticks: 300
+            });
+          }
+
           if (Date.now() < end) {
             requestAnimationFrame(frame);
+          } else {
+            // Final burst at the end
+            confetti({
+              particleCount: 150,
+              spread: 100,
+              origin: { x: 0.5, y: 0.5 },
+              colors: colors,
+              shapes: ['square', 'circle', 'star'],
+              ticks: 400
+            });
           }
         }());
       }
@@ -1694,9 +2192,9 @@
           colors: ['#26ccff', '#a25afd', '#ff5e7e', '#88ff5a', '#fcff42', '#ffa62d', '#ff36ff'],
           origin: { x: 0.5, y: 0.7 }
         };
-        
+
         const opts = Object.assign({}, defaults, options);
-        
+
         const canvas = document.createElement('canvas');
         canvas.style.position = 'fixed';
         canvas.style.top = '0';
@@ -1706,17 +2204,17 @@
         canvas.style.height = '100%';
         canvas.style.zIndex = '999';
         document.body.appendChild(canvas);
-        
+
         const ctx = canvas.getContext('2d');
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
-        
+
         const particles = [];
-        
+
         for (let i = 0; i < opts.particleCount; i++) {
           const angle = opts.angle + (Math.random() * opts.spread - opts.spread / 2);
           const speed = opts.startVelocity * (1 + Math.random() * 0.2);
-          
+
           particles.push({
             x: opts.origin.x * canvas.width,
             y: opts.origin.y * canvas.height,
@@ -1731,37 +2229,37 @@
             drift: opts.drift
           });
         }
-        
+
         let tick = 0;
-        
+
         function update() {
           tick++;
-          
+
           ctx.clearRect(0, 0, canvas.width, canvas.height);
-          
+
           particles.forEach((particle, i) => {
             particle.x += particle.vx;
             particle.y += particle.vy;
             particle.vy += particle.gravity;
             particle.vx += particle.drift;
             particle.ticks--;
-            
+
             ctx.beginPath();
             ctx.fillStyle = particle.color;
-            
+
             if (particle.shape === 'circle') {
               ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
             } else {
               ctx.rect(particle.x, particle.y, particle.size, particle.size);
             }
-            
+
             ctx.fill();
-            
+
             if (particle.ticks <= 0) {
               particles.splice(i, 1);
             }
           });
-          
+
           if (particles.length > 0) {
             requestAnimationFrame(update);
           } else {
@@ -1770,7 +2268,7 @@
             }, 1000);
           }
         }
-        
+
         requestAnimationFrame(update);
       }
     </script>
