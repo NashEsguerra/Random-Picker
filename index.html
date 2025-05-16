@@ -1473,14 +1473,35 @@
           maxNumber: 58
         },
         knights: {
-          numbers: Array.from({ length: 25 }, (_, i) => i + 1),
+          names: [
+            "Mark",
+            "Joseph",
+            "Ka Buro",
+            "Abe",
+            "Serge",
+            "Knowell",
+            "Lito",
+            "Rolly",
+            "Ely",
+            "Eddie",
+            "Chris",
+            "Hano",
+            "Atty",
+            "Gener",
+            "Mel",
+            "Reynard",
+            "Rino",
+            "Jimuel",
+            "Joel",
+            "Teddie"
+          ],
           title: "KNIGHTS DRAW",
-          subtitle: "NUMBERS 1-25",
-          shape: "circle",
+          subtitle: "KNIGHTS OF COLUMBUS",
+          shape: "rectangle",
           drawTime: 30,
           highlightIndex: null,
-          minNumber: 1,
-          maxNumber: 25
+          specialNames: ["Joseph", "Mel", "Knowell", "Reynard"], // These will be the last 4 names
+          history: [] // Array to store winners history
         },
         "first-month": {
           numbers: [
@@ -1711,9 +1732,9 @@
         grid.innerHTML = "";
 
         let items = [];
-        if (category === "batch" || category === "brgy") {
+        if (category === "batch" || category === "brgy" || category === "knights") {
           items = data[category].names;
-        } else if (category === "katoda" || category === "knights" || category === "first-month") {
+        } else if (category === "katoda" || category === "first-month") {
           items = data[category].numbers;
         } else if (category === "custom") {
           items = data[category].items;
@@ -1744,9 +1765,9 @@
       // Start draw function
       function startDraw(category) {
         let items = [];
-        if (category === "batch" || category === "brgy") {
+        if (category === "batch" || category === "brgy" || category === "knights") {
           items = data[category].names;
-        } else if (category === "katoda" || category === "knights" || category === "first-month") {
+        } else if (category === "katoda" || category === "first-month") {
           items = data[category].numbers;
         } else if (category === "custom") {
           items = data[category].items;
@@ -1859,9 +1880,9 @@
         }
 
         let items = [];
-        if (category === "batch" || category === "brgy") {
+        if (category === "batch" || category === "brgy" || category === "knights") {
           items = data[category].names;
-        } else if (category === "katoda" || category === "knights" || category === "first-month") {
+        } else if (category === "katoda" || category === "first-month") {
           items = data[category].numbers;
         } else if (category === "custom") {
           items = data[category].items;
@@ -1972,15 +1993,15 @@
               winnerItem = items[winnerIndex];
             }
           } else if (category === "brgy") {
-            // For Barangay, check if Nhoel is still in the list
-            const specialName = data.brgy.specialNames[0]; // "NHOEL"
+            // For Barangay, check if Knowell is still in the list
+            const specialName = data.brgy.specialNames[0]; // "Knowell"
 
             if (items.length === 1 && items[0] === specialName) {
-              // If only Nhoel is left, select him
+              // If only Knowell is left, select him
               winnerIndex = 0;
               winnerItem = specialName;
             } else if (items.includes(specialName)) {
-              // If Nhoel is in the list but not the only one, select someone else
+              // If Knowell is in the list but not the only one, select someone else
               const nonSpecialItems = items.filter(item => item !== specialName);
               if (nonSpecialItems.length > 0) {
                 winnerIndex = items.indexOf(nonSpecialItems[Math.floor(Math.random() * nonSpecialItems.length)]);
@@ -1989,8 +2010,39 @@
               }
               winnerItem = items[winnerIndex];
             } else {
-              // If Nhoel is not in the list, select randomly
+              // If Knowell is not in the list, select randomly
               winnerIndex = Math.floor(Math.random() * items.length);
+              winnerItem = items[winnerIndex];
+            }
+          } else if (category === "knights") {
+            // For Knights, check if we're down to the last 4 special names
+            const specialNames = data.knights.specialNames; // ["Joseph", "Mel", "Knowell", "Reynard"]
+            const remainingSpecialNames = specialNames.filter(name => items.includes(name));
+
+            if (items.length <= 4 && remainingSpecialNames.length > 0) {
+              // If we're down to 4 or fewer items and have special names left
+              if (items.length === remainingSpecialNames.length) {
+                // If all remaining items are special names, pick randomly among them
+                winnerIndex = items.indexOf(remainingSpecialNames[Math.floor(Math.random() * remainingSpecialNames.length)]);
+              } else {
+                // Otherwise, select a non-special name first
+                const nonSpecialItems = items.filter(item => !specialNames.includes(item));
+                if (nonSpecialItems.length > 0) {
+                  winnerIndex = items.indexOf(nonSpecialItems[Math.floor(Math.random() * nonSpecialItems.length)]);
+                } else {
+                  // If no non-special names left, pick randomly
+                  winnerIndex = Math.floor(Math.random() * items.length);
+                }
+              }
+              winnerItem = items[winnerIndex];
+            } else {
+              // If we have more than 4 items or no special names left, select randomly from non-special names
+              const nonSpecialItems = items.filter(item => !specialNames.includes(item));
+              if (nonSpecialItems.length > 0) {
+                winnerIndex = items.indexOf(nonSpecialItems[Math.floor(Math.random() * nonSpecialItems.length)]);
+              } else {
+                winnerIndex = Math.floor(Math.random() * items.length);
+              }
               winnerItem = items[winnerIndex];
             }
           } else if (category === "first-month") {
@@ -2069,9 +2121,9 @@
           triggerConfetti();
 
           // Remove winner from the list
-          if (category === "batch" || category === "brgy") {
+          if (category === "batch" || category === "brgy" || category === "knights") {
             data[category].names.splice(winnerIndex, 1);
-          } else if (category === "katoda" || category === "knights" || category === "first-month") {
+          } else if (category === "katoda" || category === "first-month") {
             data[category].numbers.splice(winnerIndex, 1);
           } else if (category === "custom") {
             data[category].items.splice(winnerIndex, 1);
