@@ -1429,6 +1429,7 @@
             "Lilian",
             "Nory",
             "Emelie",
+            "Marina",
             "Myleen",
             "Merlinda",
             "Dolor",
@@ -1443,6 +1444,7 @@
         },
         brgy: {
           names: [
+            "ALBERTO",
             "NHOEL",
             "NESTOR",
             "ALDRIN",
@@ -1483,13 +1485,14 @@
             "Ely",
             "Eddie",
             "Chris",
+            "Hano",
             "Atty",
             "Gener",
             "Mel",
             "Reynard",
             "Rino",
             "Jimuel",
-            "Boyeng",
+            "Joel",
             "Teddie"
           ],
           title: "KNIGHTS DRAW",
@@ -1505,6 +1508,7 @@
             "1. KAP MEAN",
             "3. JENNY",
             "4. JERIC",
+            "6. WAWENG",
             "8. MARY ANN",
             "9. AYESA",
             "11. SHAINE",
@@ -1512,7 +1516,6 @@
             "13. NANCY",
             "14. RAQUEL",
             "15. ARLETH",
-            "17. GERRY",
             "20. MARILYN_C",
             "21. CARLA/ED",
             "22. MARILYN",
@@ -1527,7 +1530,7 @@
           highlightIndex: null,
           minNumber: 1,
           maxNumber: 30,
-          specialNumbers: [17, 20] // These will be the last 2 numbers
+          specialNumbers: [20] // This will be the last number (MARILYN_C)
         },
         custom: {
           items: [],
@@ -1989,15 +1992,15 @@
               winnerItem = items[winnerIndex];
             }
           } else if (category === "brgy") {
-            // For Barangay, check if Knowell is still in the list
-            const specialName = data.brgy.specialNames[0]; // "Knowell"
+            // For Barangay, check if NHOEL is still in the list
+            const specialName = data.brgy.specialNames[0]; // "NHOEL"
 
             if (items.length === 1 && items[0] === specialName) {
-              // If only Knowell is left, select him
+              // If only NHOEL is left, select him
               winnerIndex = 0;
               winnerItem = specialName;
             } else if (items.includes(specialName)) {
-              // If Knowell is in the list but not the only one, select someone else
+              // If NHOEL is in the list but not the only one, select someone else
               const nonSpecialItems = items.filter(item => item !== specialName);
               if (nonSpecialItems.length > 0) {
                 winnerIndex = items.indexOf(nonSpecialItems[Math.floor(Math.random() * nonSpecialItems.length)]);
@@ -2006,7 +2009,7 @@
               }
               winnerItem = items[winnerIndex];
             } else {
-              // If Knowell is not in the list, select randomly
+              // If NHOEL is not in the list, select randomly
               winnerIndex = Math.floor(Math.random() * items.length);
               winnerItem = items[winnerIndex];
             }
@@ -2044,26 +2047,37 @@
           } else if (category === "first-month") {
             // For 1st of Month, check if we're down to numbers 17 and 20
             const specialNumbers = data["first-month"].specialNumbers; // [17, 20]
-            const remainingSpecialNumbers = specialNumbers.filter(num => items.includes(num));
 
-            if (items.length === 2 && remainingSpecialNumbers.length === 2) {
+            // Extract the number from each item string (e.g., "17. GERRY" -> 17)
+            const remainingSpecialItems = items.filter(item => {
+              const itemNumber = parseInt(item.split('.')[0]);
+              return specialNumbers.includes(itemNumber);
+            });
+
+            if (items.length === 2 && remainingSpecialItems.length === 2) {
               // If we're down to just 17 and 20, randomly select between them
-              winnerIndex = items.indexOf(remainingSpecialNumbers[Math.floor(Math.random() * 2)]);
+              winnerIndex = items.indexOf(remainingSpecialItems[Math.floor(Math.random() * 2)]);
               winnerItem = items[winnerIndex];
-            } else if (remainingSpecialNumbers.length > 0 && items.length <= 3) {
+            } else if (remainingSpecialItems.length > 0 && items.length <= 3) {
               // If we have special numbers and are down to 3 or fewer items
               // Select a non-special number if available
-              const nonSpecialItems = items.filter(item => !specialNumbers.includes(item));
+              const nonSpecialItems = items.filter(item => {
+                const itemNumber = parseInt(item.split('.')[0]);
+                return !specialNumbers.includes(itemNumber);
+              });
               if (nonSpecialItems.length > 0) {
                 winnerIndex = items.indexOf(nonSpecialItems[Math.floor(Math.random() * nonSpecialItems.length)]);
               } else {
                 // Otherwise select a random special number
-                winnerIndex = items.indexOf(remainingSpecialNumbers[Math.floor(Math.random() * remainingSpecialNumbers.length)]);
+                winnerIndex = items.indexOf(remainingSpecialItems[Math.floor(Math.random() * remainingSpecialItems.length)]);
               }
               winnerItem = items[winnerIndex];
             } else {
               // Otherwise select randomly from non-special numbers
-              const nonSpecialItems = items.filter(item => !specialNumbers.includes(item));
+              const nonSpecialItems = items.filter(item => {
+                const itemNumber = parseInt(item.split('.')[0]);
+                return !specialNumbers.includes(itemNumber);
+              });
               if (nonSpecialItems.length > 0) {
                 winnerIndex = items.indexOf(nonSpecialItems[Math.floor(Math.random() * nonSpecialItems.length)]);
               } else {
