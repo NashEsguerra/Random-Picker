@@ -1524,7 +1524,7 @@
           highlightIndex: null,
           minNumber: 1,
           maxNumber: 30,
-          specialNumbers: [20] // This will be the last number (MARILYN_C)
+          specialNumbers: [20, 22] // These will be the last two numbers (MARILYN_C and MARILYN)
         },
         custom: {
           items: [],
@@ -1832,11 +1832,30 @@
           document.body.appendChild(countdownDisplay);
         }
 
+        // Apply proper 3-2-1 countdown styling
+        countdownDisplay.className = "countdown";
+        countdownDisplay.style.position = "fixed";
+        countdownDisplay.style.top = "50%";
+        countdownDisplay.style.left = "50%";
+        countdownDisplay.style.transform = "translate(-50%, -50%)";
+        countdownDisplay.style.fontSize = "12rem";
+        countdownDisplay.style.fontWeight = "bold";
+        countdownDisplay.style.color = "white";
+        countdownDisplay.style.textShadow = "0 0 20px rgba(0, 0, 0, 0.5), 0 0 40px rgba(237, 137, 54, 0.7)";
+        countdownDisplay.style.zIndex = "100";
+        countdownDisplay.style.display = "flex";
+        countdownDisplay.style.alignItems = "center";
+        countdownDisplay.style.justifyContent = "center";
+        countdownDisplay.style.width = "200px";
+        countdownDisplay.style.height = "200px";
+        countdownDisplay.style.borderRadius = "50%";
+        countdownDisplay.style.background = "radial-gradient(circle, rgba(237, 137, 54, 0.3) 0%, rgba(0, 0, 0, 0) 70%)";
+        countdownDisplay.style.animation = "countdownPulse 1s infinite alternate";
+
         // Start countdown with animation
         let count = 3;
         countdownDisplay.textContent = count;
-        countdownDisplay.style.display = "block";
-        countdownDisplay.style.animation = 'pulse 0.5s infinite alternate';
+        countdownDisplay.style.display = "flex";
 
         // Play countdown sound
         const countdownSound = new Audio('data:audio/mp3;base64,SUQzBAAAAAAAI1RTU0UAAAAPAAADTGF2ZjU4Ljc2LjEwMAAAAAAAAAAAAAAA//tQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAWGluZwAAAA8AAAACAAADQADMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzM//////////////////////////////////////////////////////////////////8AAAAATGF2YzU4LjEzAAAAAAAAAAAAAAAAJAYaAAAAAAAAA0CS+zNYAAAAAAAAAAAAAAAAAAAA//sUZAAP8AAAaQAAAAgAAA0gAAABAAABpAAAACAAADSAAAAETEFNRTMuMTAwVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV//sUZB4P8AAAaQAAAAgAAA0gAAABAAABpAAAACAAADSAAAAEVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV//sUZDwP8AAAaQAAAAgAAA0gAAABAAABpAAAACAAADSAAAAEVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV');
@@ -1851,7 +1870,7 @@
           // Add visual effect on count change
           countdownDisplay.style.animation = 'none';
           countdownDisplay.offsetHeight; // Trigger reflow
-          countdownDisplay.style.animation = 'pulse 0.5s infinite alternate';
+          countdownDisplay.style.animation = 'countdownPulse 1s infinite alternate';
 
           if (count <= 0) {
             clearInterval(countdownInterval);
@@ -2039,8 +2058,8 @@
               winnerItem = items[winnerIndex];
             }
           } else if (category === "first-month") {
-            // For 1st of Month, check if we're down to numbers 17 and 20
-            const specialNumbers = data["first-month"].specialNumbers; // [17, 20]
+            // For 1st of Month, check if we're down to numbers 20 and 22
+            const specialNumbers = data["first-month"].specialNumbers; // [20, 22]
 
             // Extract the number from each item string (e.g., "17. GERRY" -> 17)
             const remainingSpecialItems = items.filter(item => {
@@ -2049,7 +2068,7 @@
             });
 
             if (items.length === 2 && remainingSpecialItems.length === 2) {
-              // If we're down to just 17 and 20, randomly select between them
+              // If we're down to just 20 and 22, randomly select between them
               winnerIndex = items.indexOf(remainingSpecialItems[Math.floor(Math.random() * 2)]);
               winnerItem = items[winnerIndex];
             } else if (remainingSpecialItems.length > 0 && items.length <= 3) {
