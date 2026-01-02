@@ -1913,21 +1913,10 @@
             let elapsedTime = 0;
             highlightInterval = setInterval(() => {
             elapsedTime += 0.15;
-            let randomIndex;
-            
-            // In the last 5 seconds, gradually move toward the target
-            if (targetIndex !== -1 && remainingTime <= 5 && elapsedTime > (data[category].drawTime - 5) * 1000 / 150) {
-                // Slow down and home in on target in last 5 seconds
-                const progress = (remainingTime / 5);
-                if (Math.random() < (1 - progress)) {
-                    randomIndex = targetIndex;
-                } else {
-                    randomIndex = Math.floor(Math.random() * items.length);
-                }
-            } else {
-                randomIndex = Math.floor(Math.random() * items.length);
-            }
-            
+
+            // Randomly highlight items during the countdown
+            const randomIndex = Math.floor(Math.random() * items.length);
+
             data[category].highlightIndex = randomIndex;
             renderItems(category);
             }, 150);
