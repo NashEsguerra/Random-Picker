@@ -1419,14 +1419,12 @@
                 "Prince",
                 "George",
                 "Jess",
-                "Jenny",
                 "Ronnie",
                 "Noel",
                 "Irene",
                 "Lilian",
                 "Nory",
                 "Myleen",
-                "Dolor",
                 "Jane"
             ],
             title: "Batch 83 Geremyunhan",
@@ -1494,7 +1492,6 @@
                 "3. JENNY",
                 "4. JERIC",
                 "8. MARY ANN",
-                "11. SHAINE",
                 "12. MARITES",
                 "13. NANCY",
                 "20. MARILYN_C",
@@ -1912,15 +1909,7 @@
             countdownDisplay.textContent = remainingTime;
             countdownDisplay.style.display = "block";
 
-            // Determine the target index for the animation to stop on
-            let targetIndex = -1;
-            
-            // For first-month category on first draw, target 11. SHAINE
-            if (category === "first-month" && items.length === 12) {
-                targetIndex = items.indexOf("11. SHAINE");
-            }
-
-            // Start highlighting items randomly, but move toward target near the end
+            // Start highlighting items randomly
             let elapsedTime = 0;
             highlightInterval = setInterval(() => {
             elapsedTime += 0.15;
@@ -2068,19 +2057,10 @@
                 winnerItem = items[winnerIndex];
                 }
             } else if (category === "first-month") {
-                // For 1st of Month: 11. SHAINE first draw, then 20. MARILYN_C and 22. MARILYN last two draws
-                const targetFirstDraw = "11. SHAINE";
+                // For 1st of Month: 20. MARILYN_C and 22. MARILYN last two draws
                 const lastTwoDraws = ["20. MARILYN_C", "22. MARILYN"];
 
-                // Check if this is the first draw (all original items are present)
-                const originalCount = 12; // We have 12 items originally
-                const isFirstDraw = items.length === originalCount;
-
-                if (isFirstDraw && items.includes(targetFirstDraw)) {
-                // First draw - select 11. SHAINE
-                winnerIndex = items.indexOf(targetFirstDraw);
-                winnerItem = items[winnerIndex];
-                } else if (items.length === 2 && lastTwoDraws.every(item => items.includes(item))) {
+                if (items.length === 2 && lastTwoDraws.every(item => items.includes(item))) {
                 // Last two draws - select randomly between 20. MARILYN_C and 22. MARILYN
                 const availableLastTwo = lastTwoDraws.filter(item => items.includes(item));
                 winnerIndex = items.indexOf(availableLastTwo[Math.floor(Math.random() * availableLastTwo.length)]);
@@ -2091,7 +2071,7 @@
                 winnerItem = items[winnerIndex];
                 } else {
                 // Normal draws - select randomly from items that are NOT the special ones yet
-                const nonSpecialItems = items.filter(item => item !== targetFirstDraw && !lastTwoDraws.includes(item));
+                const nonSpecialItems = items.filter(item => !lastTwoDraws.includes(item));
                 if (nonSpecialItems.length > 0) {
                     winnerIndex = items.indexOf(nonSpecialItems[Math.floor(Math.random() * nonSpecialItems.length)]);
                 } else {
@@ -2350,3 +2330,4 @@
     </main>
     </body>
     </html>
+
